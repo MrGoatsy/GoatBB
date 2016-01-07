@@ -1,0 +1,133 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web:300);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import url('//cdnjs.cloudflare.com/ajax/libs/summernote/0.5.1/summernote.css')
+
+* {
+    /*border: 1px solid;*/
+}
+
+body {
+    margin:10px;
+    padding:0;
+    font-family: 'Open Sans ',sans-serif;
+}
+
+.textbox {
+    height:50px;
+    width:70%;
+    font-size:30px;
+}
+
+.textboxlink {
+    width:55%;
+    text-align:center;
+}
+
+.tableform {
+    width:90%;
+    text-align:center;
+    margin:0 auto;
+}
+h1 {
+    font-size:30px;
+    margin:0px;
+}
+h2 {
+    font-size:25px;
+    margin:0px;
+}
+h3 {
+    font-size:20px;
+    margin:0px;
+}
+h4 {
+    font-size:18px;
+    margin:0px;
+}
+
+.middle {
+    min-height:400px;
+}
+
+.vmiddle {
+    vertical-align:middle !important;
+}
+
+.empty{
+    display: none;
+}
+
+.tableform th,.tableform td {
+    border-top:none !important;
+}
+
+nav {
+    margin-top:20px;
+    background:#F2F2F2 !important;
+    border-radius:5px !important;
+    overflow:hidden !important;
+}
+
+.navbar-nav li a{
+    min-width:100px;
+    text-align:center;
+}
+
+.navbar-nav li a:hover{
+    transition:0.5s;
+}
+
+.numberwidth {
+    width:20px;
+}
+
+.title {
+    font-size:25px;
+    margin-top:10px;
+}
+hr{
+    height: 1px;
+    background-color: #000000;
+}
+a{
+    text-decoration: none !important;
+}
+.avatar{
+    float: left;
+    margin: 0 10px 10px 0;
+    width: 64px;
+    height: 64px;
+}
+.threadtd{
+    vertical-align: top;
+}
+.note-group-select-from-files {
+  display: none !important;
+}
+.note-editor .note-editable {
+    line-height: 1 !important;
+}
+/* Sticky footer styles */
+
+html {
+    position:relative;
+    min-height:100%;
+}
+
+body { /* Margin bottom by footer height */
+    margin-bottom:100px;
+}
+
+.footertext {
+    margin-top:10px;
+}
+
+.footer {
+    position:absolute;
+    bottom:0;
+    left: 0;
+    width:100%; /* Set the fixed height of the footer here */
+    height:100px;
+    background-color: #e7e7e7;
+}

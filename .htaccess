@@ -1,0 +1,15 @@
+# Do not remove this line or mod_rewrite rules and search engine friendly URLs will stop working
+RewriteEngine On
+
+RewriteBase /
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} -d [OR]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+RewriteRule ^p/(.+)$ index.php?p=$1 [QSA,L]
+RewriteRule ^section/(.+)$ index.php?section=$1 [QSA,L]
+RewriteRule ^thread/(.+)$ index.php?thread=$1 [QSA,L]
+RewriteRule ^(.+)$ index.php?s=$1 [QSA,L]
