@@ -35,7 +35,7 @@
                             ]);
 
                             $email_code     = md5($username + microtime());
-                            $rank           = ((!$users->rowCount())? 999 : 0);
+                            $rank           = ((!$users->rowCount())? 999 : 1);
 
                             if(preg_match('/^[a-z\d]{2,255}$/i', $username)){
                                 if(strlen($password) >= 5){

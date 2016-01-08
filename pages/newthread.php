@@ -60,18 +60,7 @@
 
                                 $fetch = $query->fetch(PDO::FETCH_ASSOC);
 
-                                $query = $handler->prepare('INSERT INTO thread (sc_id, u_id, title, content) VALUES (:sc_id, :u_id, :title, :content)');
-                                try{
-                                    $query->execute([
-                                        ':sc_id'    => $section,
-                                        ':u_id'     => $fetch['u_id'],
-                                        'title'     => $title,
-                                        ':content'  => $thread
-                                    ]);
-                                }
-                                catch(PDOException $e){
-                                    echo $error;
-                                }
+                                perry('INSERT INTO thread (sc_id, u_id, title, content) VALUES (:sc_id, :u_id, :title, :content)', [':sc_id'=> $section, ':u_id' => $fetch['u_id'], 'title' => $title, ':content' => $thread]);
                             }
                             else{
                                 echo $invalidchartitle;

@@ -15,12 +15,51 @@
             $fetchr = $queryU->fetch(PDO::FETCH_ASSOC);
             $fetchTcount = $queryT->fetch(PDO::FETCH_NUM);
             $fetchPcount = $queryP->fetch(PDO::FETCH_NUM);
+
+            $pagenumber = ((isset($_GET['pn']) && is_numeric($_GET['pn']))? (int)$_GET['pn'] : 1);
+            $start = (($pagenumber > 1)? ($pagenumber * $perpage) - $perpage : 0);
+
+            $querypage = $handler->prepare("SELECT SQL_CALC_FOUND_ROWS * FROM threadpost WHERE t_id = :t_id LIMIT {$start}, {$perpage}");
+            $querypage->execute([
+                ':t_id' => $_GET['thread']
+            ]);
+
+            $total = $handler->query("SELECT FOUND_ROWS() as total")->fetch()['total'];
+            $pages = ceil($total / $perpage);
+
+            if($pagenumber > $pages){
+                header('Location: ?pn=1');
+            }
     ?>
     <div class="table-responsive">
+        <ul class="pagination pull-right">
+            <?php
+                $i = 1;
+                echo'<li><a href="?pn=1">&lt;&lt;</a></li>';
+                echo'<li><a href="?pn=' . ($pagenumber - 1) . '">&lt;</a></li>';
+
+                while($i <= $pages){
+                    if(!($pagenumber <= $i-5) && !($pagenumber >= $i+5)){
+            ?>
+                <li <?php echo (($pagenumber === $i)? 'class="active"' : ''); ?>><a href="?pn=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+            <?php
+                    }
+                    $i++;
+                }
+
+                echo'<li><a href="?pn=' . ($pagenumber + 1) . '">&gt;</a></li>';
+                echo'<li><a href="?pn=' . $pages . '">&gt;&gt;</a></li>';
+            ?>
+        </ul>
         <table class="table" border=1>
             <tr>
-                <td><?php echo $fetch['title']; ?></td>
+                <td><strong><?php echo $fetch['title']; ?></strong></td>
             </tr>
+        </table>
+        <?php
+            if($pagenumber == 1){
+        ?>
+        <table class="table" border=1>
             <tr>
                 <td>
                     <table style="width: 100%;">
@@ -42,21 +81,23 @@
                 <td><a href="" class="btn btn-primary pull-right">Report</a></td>
             </tr>
         </table>
-            <?php
-                $query = $handler->prepare('SELECT * FROM threadpost WHERE t_id = :t_id');
-                $query->execute([
-                    ':t_id' => $_GET['thread']
-                ]);
+        <?php
+            }
+            
+            $query = $handler->prepare('SELECT * FROM threadpost WHERE t_id = :t_id');
+            $query->execute([
+                ':t_id' => $_GET['thread']
+            ]);
 
-                while($fetch = $query->fetch(PDO::FETCH_ASSOC)){
-                    $Uquery = $handler->query('SELECT * FROM users WHERE u_id =' . $fetch['u_id']);
-                    $queryT = $handler->query('SELECT COUNT(*) FROM thread WHERE u_id =' . $fetch['u_id']);
-                    $queryP = $handler->query('SELECT COUNT(*) FROM threadpost WHERE u_id =' . $fetch['u_id']);
+            while($fetch = $querypage->fetch(PDO::FETCH_ASSOC)){
+                $Uquery = $handler->query('SELECT * FROM users WHERE u_id =' . $fetch['u_id']);
+                $queryT = $handler->query('SELECT COUNT(*) FROM thread WHERE u_id =' . $fetch['u_id']);
+                $queryP = $handler->query('SELECT COUNT(*) FROM threadpost WHERE u_id =' . $fetch['u_id']);
 
-                    $uFetch = $Uquery->fetch(PDO::FETCH_ASSOC);
-                    $fetchTcount = $queryT->fetch(PDO::FETCH_NUM);
-                    $fetchPcount = $queryP->fetch(PDO::FETCH_NUM);
-            ?>
+                $uFetch = $Uquery->fetch(PDO::FETCH_ASSOC);
+                $fetchTcount = $queryT->fetch(PDO::FETCH_NUM);
+                $fetchPcount = $queryP->fetch(PDO::FETCH_NUM);
+        ?>
         <table class="table" border=1>
             <tr>
                 <td>
@@ -82,6 +123,68 @@
             <?php
                 }
             ?>
+            <form method="post">
+                <textarea name="threadpost" id="threadpost"></textarea>
+                <script>
+                    $('#threadpost').summernote({
+                        height: 150,
+                        // toolbar
+                        toolbar: [
+                          ['style', ['style']],
+                          ['font', ['bold', 'italic', 'underline', 'clear']],
+                          // ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+                          ['fontname', ['fontname']],
+                          ['fontsize', ['fontsize']],
+                          ['color', ['color']],
+                          ['para', ['ul', 'ol', 'paragraph']],
+                          ['table', ['table']],
+                          ['insert', ['link', 'picture', 'hr']],
+                          ['view', ['fullscreen']],   // remove codeview button
+                          ['help', ['help']]
+                        ]
+                    });
+                </script>
+                <div class="input-group pull-right" style="margin-bottom: 5px;">
+                    <input class="btn btn-success" type="submit" name="postToThread" value="Submit" />
+                </div>
+            </form>
+        </div>
+<?php
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if(isset($_POST['postToThread'])){
+            if(!isset($_COOKIE['send'])){
+                if(!empty($_POST['threadpost'])){
+                    $threadpost = $_POST['threadpost'];
+                    $threadpost = $purifier->purify($threadpost);
+                    //$thread = strip_tags($thread, '<h1><h2><h3><h4><h5><h6><pre><blockquote><p><b><i><u><font><span><ul><li><table><tr><td><a><img><hr><br>');
+
+                    $query = $handler->prepare('SELECT * FROM users WHERE username = :username');
+                    $query->execute([
+                        ':username' => $_SESSION['user']
+                    ]);
+
+                    $fetch = $query->fetch(PDO::FETCH_ASSOC);
+
+                    setcookie('send', 'wait', time()+$waitTime);
+
+                    echo perry('INSERT INTO threadpost (t_id, u_id, content) VALUES (:t_id, :u_id, :content)', [':t_id'=> $_GET['thread'], ':u_id' => $fetch['u_id'], ':content' => $threadpost]);
+
+                    header('Location:' . $website_url . 'thread/' . $_GET['thread']);
+                }
+                else{
+                    echo $emptyerror;
+                }
+            }
+            else{
+                echo'
+                    <div class="alert alert-danger fade in">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      ' . $pleaseWait . '
+                    </div>';
+            }
+        }
+    }
+?>
     </div>
     <?php
         }

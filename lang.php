@@ -15,7 +15,9 @@
     $sectiondoesnotexist = "<h2>404 Error</h2>This section does not exist";     //404 Error
     $threaddoesnotexist = "<h2>404 Error</h2>This thread does not exist";       //404 Error
     $lastCategory       = "You can't delete the last category.";                //You can't delete the last category
-    $invalidchartitle   = "You can only use letters and numbers in your title";  //Invalid characters
+    $invalidchartitle   = "You can only use letters and numbers in your title"; //Invalid characters
+    $waitTime           = 5;                                                    //Wait time in seconds
+    $pleaseWait         = "Please wait $waitTime before posting again.";        //Please wait
 
     /**
      * Login & Register
@@ -47,6 +49,6 @@
       * Pagination
       **/
 
-      $perpage          = 25;                                                   //Maximum results per page
+      $perpage          = 9;                                                   //Maximum results per page
       $noResultsDisplay = "There are no results on this page";                  //Invalid pagenumber
 ?>

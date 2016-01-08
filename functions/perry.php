@@ -1,5 +1,5 @@
 <?php
-    function perry($query, $execute, $redirect){
+    function perry($query, $execute, $redirect = false){
         global $handler;
 
         $perry = $handler->prepare($query);
