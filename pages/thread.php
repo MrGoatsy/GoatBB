@@ -7,29 +7,42 @@
 
         $fetch = $query->fetch(PDO::FETCH_ASSOC);
 
-        if($query->rowCount()){
-            $queryU = $handler->query('SELECT * FROM users WHERE u_id =' . $fetch['u_id']);
-            $queryT = $handler->query('SELECT COUNT(*) FROM thread WHERE u_id =' . $fetch['u_id']);
-            $queryP = $handler->query('SELECT COUNT(*) FROM threadpost WHERE u_id =' . $fetch['u_id']);
-
-            $fetchr = $queryU->fetch(PDO::FETCH_ASSOC);
-            $fetchTcount = $queryT->fetch(PDO::FETCH_NUM);
-            $fetchPcount = $queryP->fetch(PDO::FETCH_NUM);
-
-            $pagenumber = ((isset($_GET['pn']) && is_numeric($_GET['pn']))? (int)$_GET['pn'] : 1);
-            $start = (($pagenumber > 1)? ($pagenumber * $perpage) - $perpage : 0);
-
-            $querypage = $handler->prepare("SELECT SQL_CALC_FOUND_ROWS * FROM threadpost WHERE t_id = :t_id LIMIT {$start}, {$perpage}");
-            $querypage->execute([
-                ':t_id' => $_GET['thread']
-            ]);
-
-            $total = $handler->query("SELECT FOUND_ROWS() as total")->fetch()['total'];
-            $pages = ceil($total / $perpage);
-
-            if($pagenumber > $pages){
-                header('Location: ?pn=1');
+        if($query->rowCount() && $fetch['archived'] == 0){
+            if(isset($_GET['archive'])){
+                perry('UPDATE thread SET archived = 1 WHERE t_id = :t_id', [':t_id' => $_GET['thread']], false);
+                perry('UPDATE threadpost SET archived = 1 WHERE t_id = :t_id', [':t_id' => $_GET['thread']], false);
+                echo'
+                    <div class="alert alert-success fade in">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      The thread has been deleted
+                    </div>';
             }
+            else{
+                $queryU = $handler->query('SELECT * FROM users WHERE u_id =' . $fetch['u_id']);
+                $queryT = $handler->query('SELECT COUNT(*) FROM thread WHERE u_id =' . $fetch['u_id']);
+                $queryP = $handler->query('SELECT COUNT(*) FROM threadpost WHERE u_id =' . $fetch['u_id']);
+
+                $fetchr = $queryU->fetch(PDO::FETCH_ASSOC);
+                $fetchTcount = $queryT->fetch(PDO::FETCH_NUM);
+                $fetchPcount = $queryP->fetch(PDO::FETCH_NUM);
+
+                $pagenumber = ((isset($_GET['pn']) && is_numeric($_GET['pn']) && $_GET['pn'] > 0)? (int)$_GET['pn'] : 1);
+                $start = (($pagenumber > 1)? ($pagenumber * $perpage) - $perpage : 0);
+
+                $querypage = $handler->prepare("SELECT SQL_CALC_FOUND_ROWS * FROM threadpost WHERE t_id = :t_id LIMIT {$start}, {$perpage}");
+                $querypage->execute([
+                    ':t_id' => $_GET['thread']
+                ]);
+
+                $total = $handler->query("SELECT FOUND_ROWS() as total")->fetch()['total'];
+                $pages = ceil($total / $perpage);
+
+                if($pagenumber == 1){
+                    $pages = 1;
+                }
+                elseif($pagenumber > $pages){
+                    header('Location: ?pn=1');
+                }
     ?>
     <div class="table-responsive">
         <ul class="pagination pull-right">
@@ -78,23 +91,33 @@
                 <td><?php echo $fetch['content']; ?></td>
             </tr>
             <tr>
-                <td><a href="" class="btn btn-primary pull-right">Report</a></td>
+                <td>
+                    <a href="" class="btn btn-primary pull-right">Report</a>
+                    <?php
+                        $query = $handler->prepare('SELECT * FROM users WHERE username = :username');
+                        $query->execute([':username' => $_SESSION['user']]);
+                        $fetchR = $query->fetch(PDO::FETCH_ASSOC);
+
+                        if($fetchR['rank'] > 900){
+                            echo'<a href="' . $website_url . 'thread/' . $_GET['thread'] . '?archive" class="btn btn-danger pull-right">Delete</a>';
+                        }
+                    ?>
+                </td>
             </tr>
         </table>
         <?php
             }
-            
+
             $query = $handler->prepare('SELECT * FROM threadpost WHERE t_id = :t_id');
             $query->execute([
                 ':t_id' => $_GET['thread']
             ]);
 
             while($fetch = $querypage->fetch(PDO::FETCH_ASSOC)){
-                $Uquery = $handler->query('SELECT * FROM users WHERE u_id =' . $fetch['u_id']);
                 $queryT = $handler->query('SELECT COUNT(*) FROM thread WHERE u_id =' . $fetch['u_id']);
                 $queryP = $handler->query('SELECT COUNT(*) FROM threadpost WHERE u_id =' . $fetch['u_id']);
 
-                $uFetch = $Uquery->fetch(PDO::FETCH_ASSOC);
+                $uFetch = $queryU->fetch(PDO::FETCH_ASSOC);
                 $fetchTcount = $queryT->fetch(PDO::FETCH_NUM);
                 $fetchPcount = $queryP->fetch(PDO::FETCH_NUM);
         ?>
@@ -188,6 +211,7 @@
     </div>
     <?php
         }
+    }
         else{
             echo $threaddoesnotexist;
         }

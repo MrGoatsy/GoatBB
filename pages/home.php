@@ -36,7 +36,7 @@
                         </tr>
                 <?php
                     while($fetch = $query->fetch(PDO::FETCH_ASSOC)){
-                        $rcount = $handler->query('SELECT COUNT(*) FROM thread WHERE sc_id = ' . $fetch['sc_id']);
+                        $rcount = $handler->query('SELECT COUNT(*) FROM thread WHERE sc_id = ' . $fetch['sc_id'] . ' AND archived = 0');
                         $rfetch = $rcount->fetch(PDO::FETCH_NUM);
                 ?>
                 <tr>

@@ -1,49 +1,47 @@
-<div style="max-width: 60%;">
-    <div class="table-responsive">
-        <form method="post">
-        <table class="table">
-            <tr>
-                <td style="width: 60%;">Section name</td>
-                <td>Edit section</td>
-                <td>Category</td>
-                <td>Order</td>
-            </tr>
-            <?php
+<div class="table-responsive">
+    <form method="post">
+    <table class="table">
+        <tr>
+            <td style="width: 60%;">Section name</td>
+            <td>Edit section</td>
+            <td>Category</td>
+            <td>Order</td>
+        </tr>
+        <?php
 
-                $cquery = $handler->query('SELECT * FROM category');
-                $categories = $cquery->fetchAll();
+            $cquery = $handler->query('SELECT * FROM category');
+            $categories = $cquery->fetchAll();
 
-                $query = $handler->query('SELECT * FROM section ORDER BY sorder');
-                if($query->rowCount()){
-                    $x = 0;
-                    while($fetch = $query->fetch(PDO::FETCH_ASSOC)){
-                        $options = '';
-                        foreach ($categories as $cfetch) {
-                            $options .= '<option value="' . $cfetch['c_id'] . '" ' . (($cfetch['c_id'] == $fetch['c_id']) ? 'selected' : '') . '>' . $cfetch['categoryname'] . '</option>';
-                        }
-                        echo'
-                            <tr>
-                                <td><strong>' . $fetch['secname'] . '</strong><br />' . $fetch['secdesc'] . '</td>
-                                <td><a class="btn btn-warning" href="index.php?p=edit&id=' . $fetch['sc_id'] . '"><i class="fa fa-times fa-fw"></i> Edit</a>
-                                <a class="btn btn-danger" href="index.php?p=del&id=' . $fetch['sc_id'] . '"><i class="fa fa-times fa-fw"></i> Delete</a></td>
-                                <td><select name="category' . $fetch['sc_id'] . '" class="form-control" size="1">
-                                ' . $options . '
-                                </select></td>
-                                <td><input type="number" class="form-control" name="' . $fetch['sc_id'] . '" value="' . $fetch['sorder'] . '" style="width: 60px;" /></td>
-                            </tr>
-                        ';
-
-                        $x++;
+            $query = $handler->query('SELECT * FROM section ORDER BY sorder');
+            if($query->rowCount()){
+                $x = 0;
+                while($fetch = $query->fetch(PDO::FETCH_ASSOC)){
+                    $options = '';
+                    foreach ($categories as $cfetch) {
+                        $options .= '<option value="' . $cfetch['c_id'] . '" ' . (($cfetch['c_id'] == $fetch['c_id']) ? 'selected' : '') . '>' . $cfetch['categoryname'] . '</option>';
                     }
+                    echo'
+                        <tr>
+                            <td><strong>' . $fetch['secname'] . '</strong><br />' . $fetch['secdesc'] . '</td>
+                            <td><a class="btn btn-warning" href="index.php?p=edit&id=' . $fetch['sc_id'] . '"><i class="fa fa-times fa-fw"></i> Edit</a>
+                            <a class="btn btn-danger" href="index.php?p=del&id=' . $fetch['sc_id'] . '"><i class="fa fa-times fa-fw"></i> Delete</a></td>
+                            <td><select name="category' . $fetch['sc_id'] . '" class="form-control" size="1">
+                            ' . $options . '
+                            </select></td>
+                            <td><input type="number" class="form-control" name="' . $fetch['sc_id'] . '" value="' . $fetch['sorder'] . '" style="width: 60px;" /></td>
+                        </tr>
+                    ';
+
+                    $x++;
                 }
-                else{
-                    echo '<tr><td colspan="4">' . $noResultsDisplay . '</td></tr>';
-                }
-            ?>
-                <tr><td colspan="4"><input type="submit" name="section" class="btn btn-primary pull-right" value="Submit" /></td></tr>
-        </table>
-        </form>
-    </div>
+            }
+            else{
+                echo '<tr><td colspan="4">' . $noResultsDisplay . '</td></tr>';
+            }
+        ?>
+            <tr><td colspan="4"><input type="submit" name="section" class="btn btn-primary pull-right" value="Submit" /></td></tr>
+    </table>
+    </form>
 </div>
 <?php
     if(isset($_GET['p'])){

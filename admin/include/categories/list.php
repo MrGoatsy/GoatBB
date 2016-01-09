@@ -1,35 +1,33 @@
-<div style="max-width: 50%;">
-    <div class="table-responsive">
-        <table class="table">
-            <tr>
-                <td style="width: 60%;">Category name</td>
-                <td>Edit category</td>
-                <td>Order</td>
-            </tr>
-            <form method="post">
-            <?php
-                $query = $handler->query('SELECT * FROM category ORDER BY corder');
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <td style="width: 60%;">Category name</td>
+            <td>Edit category</td>
+            <td>Order</td>
+        </tr>
+        <form method="post">
+        <?php
+            $query = $handler->query('SELECT * FROM category ORDER BY corder');
 
-                if($query->rowCount()){
-                    while($fetch = $query->fetch(PDO::FETCH_ASSOC)){
-                        echo'
-                            <tr>
-                                <td><strong>' . $fetch['categoryname'] . '</strong><br /></td>
-                                <td><a class="btn btn-warning" href="index.php?p=edit&id=' . $fetch['c_id'] . '"><i class="fa fa-times fa-fw"></i> Edit</a>
-                                <a class="btn btn-danger" href="index.php?p=del&id=' . $fetch['c_id'] . '"><i class="fa fa-times fa-fw"></i> Delete</a></td>
-                                <td><input type="number" class="form-control" name="' . $fetch['c_id'] . '" value="' . $fetch['corder'] . '" style="width: 60px;" /></td>
-                            </tr>
-                        ';
-                    }
+            if($query->rowCount()){
+                while($fetch = $query->fetch(PDO::FETCH_ASSOC)){
+                    echo'
+                        <tr>
+                            <td><strong>' . $fetch['categoryname'] . '</strong><br /></td>
+                            <td><a class="btn btn-warning" href="index.php?p=edit&id=' . $fetch['c_id'] . '"><i class="fa fa-times fa-fw"></i> Edit</a>
+                            <a class="btn btn-danger" href="index.php?p=del&id=' . $fetch['c_id'] . '"><i class="fa fa-times fa-fw"></i> Delete</a></td>
+                            <td><input type="number" class="form-control" name="' . $fetch['c_id'] . '" value="' . $fetch['corder'] . '" style="width: 60px;" /></td>
+                        </tr>
+                    ';
                 }
-                else{
-                    echo '<tr><td>' . $noResultsDisplay . '</td><td></td></tr>';
-                }
-            ?>
-                <tr><td colspan="4"><input type="submit" name="order" class="btn btn-primary pull-right" value="Submit" /></td></tr>
-            </form>
-        </table>
-    </div>
+            }
+            else{
+                echo '<tr><td>' . $noResultsDisplay . '</td><td></td></tr>';
+            }
+        ?>
+            <tr><td colspan="4"><input type="submit" name="order" class="btn btn-primary pull-right" value="Submit" /></td></tr>
+        </form>
+    </table>
 </div>
 <?php
     if(isset($_GET['p'])){
