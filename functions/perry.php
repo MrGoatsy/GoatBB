@@ -1,18 +1,15 @@
 <?php
-    function perry($query, $execute, $redirect = false){
-        global $handler;
+    class Perry{
+        public $query;
+        public $execute;
 
-        $perry = $handler->prepare($query);
-        try{
-            $perry->execute(
-                $execute
-            );
+        public function __construct($query, $execute){
+            $this->query = $query;
+            $this->executeQ = $execute;
+        }
 
-            if($redirect){
-                header('Location: index.php');
-            }
-        }catch(PDOException $e){
-            return $e->getMessage();
+        public function executeQuery(){
+
         }
     }
  ?>

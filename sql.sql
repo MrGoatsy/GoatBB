@@ -12,6 +12,14 @@ CREATE TABLE IF NOT EXISTS users(
     UNIQUE KEY (`email`)
 )Engine=InnoDB;
 
+CREATE TABLE IF NOT EXISTS warnings(
+    `w_id` int(10) NOT NULL auto_increment,
+    `u_id` int(10) NOT NULL,
+    `amount` int(10) NOT NULL,
+    `reason` varchar(255),
+    PRIMARY KEY `w_id` (`w_id`)
+)Engine=InnoDB;
+
 CREATE TABLE IF NOT EXISTS messages(
     `m_id` int(10) NOT NULL auto_increment,
     `u_id_sender` int(10) NOT NULL,
