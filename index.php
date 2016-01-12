@@ -1,5 +1,18 @@
 <?php
     require'config.php';
+
+    if(isset($_SESSION['user'])){
+        $queryUser = $handler->prepare('SELECT * FROM users WHERE username = :username');
+        $queryUser->execute([
+            ':username' => $_SESSION['user']
+        ]);
+
+        $fetchUser = $queryUser->fetch(PDO::FETCH_ASSOC);
+
+        if($fetchUser['banned'] == 1){
+            header('Location: index.php');
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

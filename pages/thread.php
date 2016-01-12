@@ -94,11 +94,7 @@
                 <td>
                     <a href="" class="btn btn-primary pull-right">Report</a>
                     <?php
-                        $query = $handler->prepare('SELECT * FROM users WHERE username = :username');
-                        $query->execute([':username' => $_SESSION['user']]);
-                        $fetchR = $query->fetch(PDO::FETCH_ASSOC);
-
-                        if($fetchR['rank'] > 900){
+                        if($fetchUser['rank'] > 900){
                             echo'<a href="' . $website_url . 'thread/' . $_GET['thread'] . '?archive" class="btn btn-danger pull-right">Delete</a>';
                         }
                     ?>
@@ -181,16 +177,9 @@
                     $threadpost = $purifier->purify($threadpost);
                     //$thread = strip_tags($thread, '<h1><h2><h3><h4><h5><h6><pre><blockquote><p><b><i><u><font><span><ul><li><table><tr><td><a><img><hr><br>');
 
-                    $query = $handler->prepare('SELECT * FROM users WHERE username = :username');
-                    $query->execute([
-                        ':username' => $_SESSION['user']
-                    ]);
-
-                    $fetch = $query->fetch(PDO::FETCH_ASSOC);
-
                     setcookie('send', 'wait', time()+$waitTime);
 
-                    echo perry('INSERT INTO threadpost (t_id, u_id, content) VALUES (:t_id, :u_id, :content)', [':t_id'=> $_GET['thread'], ':u_id' => $fetch['u_id'], ':content' => $threadpost]);
+                    echo perry('INSERT INTO threadpost (t_id, u_id, content) VALUES (:t_id, :u_id, :content)', [':t_id'=> $_GET['thread'], ':u_id' => $fetchUser['u_id'], ':content' => $threadpost]);
 
                     header('Location:' . $website_url . 'thread/' . $_GET['thread']);
                 }

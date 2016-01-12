@@ -38,6 +38,7 @@
      $accountactivated  = "Your account has been activated.";                   //Account has been activated
      $notactive         = "Your account has not yet been activated.";           //Account not activated
      $doesnotexist      = "That code does not exist.";                          //Invalid code
+     $banned             = "You have been banned from this forum";               //Banned
 
      /**
       * Page handling

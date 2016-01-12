@@ -18,7 +18,7 @@
                 <td style="width: 15%;">Latest post</td>
             </tr>
             <?php
-                $query = $handler->prepare('SELECT th.*, count(po.t_id) AS amount, max(po.postdate) AS lastdate FROM thread th LEFT OUTER JOIN threadpost po ON th.t_id = po.t_id WHERE th.archived = 0 GROUP BY po.t_id ORDER BY lastdate DESC');
+                $query = $handler->prepare('SELECT th.*, count(po.t_id) AS amount, CASE when th.postdate > IFNULL(po.postdate, "2000-01-01 00:00:00") then max(th.postdate) else max(po.postdate) end AS lastdate FROM thread th LEFT OUTER JOIN threadpost po ON th.t_id = po.t_id WHERE th.archived = 0 GROUP BY po.t_id ORDER BY lastdate DESC');
                 try{
                     $query->execute();
                 }
@@ -28,9 +28,6 @@
                 while($fetch = $query->fetch(PDO::FETCH_ASSOC)){
                     $queryUser = $handler->query('SELECT * FROM users WHERE u_id =' . $fetch['u_id']);
                     $queryTime = $handler->query('SELECT * FROM threadpost WHERE t_id =' . $fetch['t_id'] . ' ORDER BY postdate DESC');
-
-                    $fetchUser = $queryUser->fetch(PDO::FETCH_ASSOC);
-                    $fetchTime = $queryTime->fetch(PDO::FETCH_ASSOC);
             ?>
             <tr>
                 <td><a href="<?php echo $website_url . 'thread/' . $fetch['t_id']; ?>" style="font-weight: bold;"><?php echo $fetch['title']; ?></a></td>
@@ -39,7 +36,7 @@
                     <?php
                         $monthNum  = substr($fetch['postdate'], 5, 2);
                         $dateObj   = DateTime::createFromFormat('!m', $monthNum);
-                        echo $fetch['title'] . '<br />';
+                        echo'<a href="' . $website_url . 'thread/' . $fetch['t_id'] . '" style="font-weight: bold;">' . $fetch['title'] . '</a>' . '<br />';
                         echo substr($fetch['lastdate'], 11, 8) . ' on ' . substr($fetch['lastdate'], 8, 2) . ' ' . $dateObj->format('F') . ' ' . substr($fetch['lastdate'], 0, 4) . '<br />';
                         echo'by ' . $fetchUser['username'];
                     ?>

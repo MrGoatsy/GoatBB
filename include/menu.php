@@ -16,13 +16,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <?php
                     if(isset($_SESSION['user'])){
-                        $query = $handler->prepare('SELECT * FROM users WHERE username = :username');
-                        $query->execute([
-                            ':username' => $_SESSION['user']
-                        ]);
-                        $fetch = $query->fetch(PDO::FETCH_ASSOC);
-
-                        if($fetch['rank'] >= 900){
+                        if($fetchUser['rank'] >= 900){
                             echo'
                             <li>
                                 <a href="' . $website_url . 'admin/">Control panel</a>

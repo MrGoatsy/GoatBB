@@ -1,5 +1,18 @@
 <?php
     require_once'../config.php';
+
+    if(isset($_SESSION['user'])){
+        $queryUser = $handler->prepare('SELECT * FROM users WHERE username = :username');
+        $queryUser->execute([
+            ':username' => $_SESSION['user']
+        ]);
+
+        $fetchUser = $queryUser->fetch(PDO::FETCH_ASSOC);
+
+        if($fetchUser['banned'] == 1){
+            header('Location: index.php');
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,13 +35,7 @@
       <div class="container-fluid">
         <?php
             if(isset($_SESSION['user'])){
-                $query = $handler->prepare('SELECT * FROM users WHERE username = :username');
-                $query->execute([
-                    ':username' => $_SESSION['user']
-                ]);
-                $fetch = $query->fetch(PDO::FETCH_ASSOC);
-
-                if($fetch['rank'] >= 900){
+                if($fetchUser['rank'] >= 900){
         ?>
       	<div class="row">
       		<div class="col-md-12">

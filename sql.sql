@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS users(
     `email_code` varchar(32) NOT NULL,
     `rank` int(10) DEFAULT '1',
     `active` BOOLEAN DEFAULT '0',
+    `banned` BOOLEAN DEFAULT '0',
     PRIMARY KEY `u_id` (`u_id`),
     UNIQUE KEY (`username`),
     UNIQUE KEY (`email`)
@@ -39,7 +40,7 @@ CREATE TABLE IF NOT EXISTS category(
     UNIQUE KEY (`categoryname`)
 )Engine=InnoDB;
 
-INSERT INTO category (`categoryname`, `corder`) VALUES ('Home', 1);
+INSERT INTO `category` (`categoryname`, `corder`) VALUES ('Home', '1');
 
 CREATE TABLE IF NOT EXISTS section(
     `sc_id` int(10) NOT NULL auto_increment,

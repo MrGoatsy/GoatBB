@@ -24,7 +24,7 @@
         die('Something went wrong, please try again.');
     }
 
-    $website_url = "http://$_SERVER[HTTP_HOST]/";
+    $website_url = "http://$_SERVER[HTTP_HOST]/goatbb/";
     $contactemail = "noreply@ayy.pw";
 
     require_once'lang.php';
