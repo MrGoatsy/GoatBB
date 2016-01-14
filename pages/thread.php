@@ -6,7 +6,7 @@
         ]);
 
         $fetch = $query->fetch(PDO::FETCH_ASSOC);
-
+        
         if($query->rowCount() && $fetch['archived'] == 0){
             if(isset($_GET['archive'])){
                 perry('UPDATE thread SET archived = 1 WHERE t_id = :t_id', [':t_id' => $_GET['thread']], false);
