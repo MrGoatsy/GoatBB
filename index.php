@@ -13,6 +13,9 @@
             header('Location: index.php');
         }
     }
+    else{
+        $fetchUser = NULL;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
