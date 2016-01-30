@@ -22,7 +22,6 @@
 
                 while($fetch = $query->fetch(PDO::FETCH_ASSOC)){
                     $queryUser = $handler->query('SELECT * FROM users WHERE u_id =' . $fetch['u_id']);
-                    $queryTime = $handler->query('SELECT * FROM threadpost WHERE t_id =' . $fetch['t_id'] . ' ORDER BY postdate DESC');
 
                     $fetchPostedBy = $queryUser->fetch(PDO::FETCH_ASSOC);
             ?>
