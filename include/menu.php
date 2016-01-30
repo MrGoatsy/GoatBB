@@ -16,6 +16,11 @@
             <ul class="nav navbar-nav navbar-right">
                 <?php
                     if(isset($_SESSION['user'])){
+                        echo'
+                        <li>
+                            <a href="' . $website_url . 'p/profile">Profile</a>
+                        </li>
+                        ';
                         if($fetchUser['rank'] >= 900){
                             echo'
                             <li>

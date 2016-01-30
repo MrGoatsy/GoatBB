@@ -10,7 +10,7 @@
         $fetchUser = $queryUser->fetch(PDO::FETCH_ASSOC);
 
         if($fetchUser['banned'] == 1){
-            header('Location: index.php');
+            $banned = 1;
         }
     }
     else{
@@ -64,6 +64,9 @@
                               }
                               elseif(isset($_GET['thread'])){
                                   require_once'pages/thread.php';
+                              }
+                              elseif($banned === 1){
+                                  require_once'pages/banned.php';
                               }
                               else{
                                   include'pages/home.php';

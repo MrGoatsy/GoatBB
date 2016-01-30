@@ -13,6 +13,14 @@ CREATE TABLE IF NOT EXISTS users(
     UNIQUE KEY (`email`)
 )Engine=InnoDB;
 
+CREATE TABLE IF NOT EXISTS ranks(
+    `r_id` int(10) NOT NULL auto_increment,
+    `rankName` varchar(255) NOT NULL,
+    `rankValue` int(10),
+    PRIMARY KEY (`r_id`),
+    UNIQUE KEY (`rankValue`)
+)Engine=InnoDB;
+
 CREATE TABLE IF NOT EXISTS warnings(
     `w_id` int(10) NOT NULL auto_increment,
     `u_id` int(10) NOT NULL,
