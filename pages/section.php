@@ -18,7 +18,7 @@
                 <td style="width: 15%;">Latest post</td>
             </tr>
             <?php
-                $query = $handler->query('SELECT th.*, count(po.t_id) AS amount, CASE when th.postdate > IFNULL(po.postdate, "0000-01-01 00:00:00") then max(th.postdate) else max(po.postdate) end AS lastdate FROM thread th LEFT OUTER JOIN threadpost po ON th.t_id = po.t_id WHERE th.archived = 0 GROUP BY th.t_id ORDER BY lastdate DESC');
+                $query = $handler->query('SELECT th.*, count(po.t_id) AS amount, CASE when th.postdate > IFNULL(po.postdate, "0000-01-01 00:00:00") then max(th.postdate) else max(po.postdate) end AS lastdate FROM thread th LEFT OUTER JOIN threadpost po ON th.t_id = po.t_id WHERE th.archived = 0 AND th.sc_id = ' . $fetchSections['sc_id'] . ' GROUP BY th.t_id ORDER BY lastdate DESC');
 
                 while($fetch = $query->fetch(PDO::FETCH_ASSOC)){
                     $queryUser = $handler->query('SELECT * FROM users WHERE u_id =' . $fetch['u_id']);

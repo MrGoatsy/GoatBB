@@ -18,7 +18,7 @@
                     if(isset($_SESSION['user'])){
                         echo'
                         <li>
-                            <a href="' . $website_url . 'p/profile">Profile</a>
+                            <a href="' . $website_url . 'p/profile?userid=' . $fetchUser['u_id'] . '">Profile</a>
                         </li>
                         ';
                         if($fetchUser['rank'] >= 900){

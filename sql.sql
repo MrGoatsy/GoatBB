@@ -3,6 +3,8 @@ CREATE TABLE IF NOT EXISTS users(
     `username` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
     `joindate` datetime NOT NULL DEFAULT NOW(),
+    `website` varchar(255),
+    `signature` varchar(1000),
     `email` varchar(255) NOT NULL,
     `email_code` varchar(32) NOT NULL,
     `rank` int(10) DEFAULT '1',
@@ -20,6 +22,12 @@ CREATE TABLE IF NOT EXISTS ranks(
     PRIMARY KEY (`r_id`),
     UNIQUE KEY (`rankValue`)
 )Engine=InnoDB;
+
+INSERT INTO ranks (rankName, rankValue) VALUES ('Admin', 999);
+INSERT INTO ranks (rankName, rankValue) VALUES ('Moderator', 950);
+INSERT INTO ranks (rankName, rankValue) VALUES ('Premium', 100);
+INSERT INTO ranks (rankName, rankValue) VALUES ('User', 1);
+INSERT INTO ranks (rankName, rankValue) VALUES ('Banned', 0);
 
 CREATE TABLE IF NOT EXISTS warnings(
     `w_id` int(10) NOT NULL auto_increment,

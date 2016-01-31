@@ -9,6 +9,9 @@
 
         $fetchUser = $queryUser->fetch(PDO::FETCH_ASSOC);
 
+        $queryRank = $handler->query('SELECT * FROM ranks WHERE rankValue =' . $fetchUser['rank']);
+        $fetchRank = $queryRank->fetch(PDO::FETCH_ASSOC);
+
         if($fetchUser['banned'] == 1){
             $banned = 1;
         }

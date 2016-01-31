@@ -102,6 +102,9 @@ a{
 .threadtd{
     vertical-align: top;
 }
+.profileSpan{
+    margin-left: 5px;
+}
 .note-group-select-from-files {
   display: none !important;
 }

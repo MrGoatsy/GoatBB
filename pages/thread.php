@@ -81,7 +81,7 @@
                             <td class="threadtd"><?php echo $fetchr['username']; ?></td>
                             <td class="threadtd pull-right">
                                 Posts: <?php echo $fetchTcount[0] + $fetchPcount[0]; ?><br />
-                                Joined: <?php echo substr($fetchr['joindate'], 0, 7); ?>
+                                Joined: <?php echo substr($fetchr['joindate'], 5, 2) . '-' . substr($fetchr['joindate'], 0, 4); ?>
                             </td>
                         </tr>
                     </table>
@@ -110,6 +110,7 @@
             ]);
 
             while($fetch = $querypage->fetch(PDO::FETCH_ASSOC)){
+                $queryU = $handler->query('SELECT * FROM users WHERE u_id =' . $fetch['u_id']);
                 $queryT = $handler->query('SELECT COUNT(*) FROM thread WHERE u_id =' . $fetch['u_id']);
                 $queryP = $handler->query('SELECT COUNT(*) FROM threadpost WHERE u_id =' . $fetch['u_id']);
 
@@ -126,7 +127,7 @@
                             <td class="threadtd"><?php echo $uFetch['username']; ?></td>
                             <td class="threadtd pull-right">
                                 Posts: <?php echo $fetchTcount[0] + $fetchPcount[0]; ?><br />
-                                Joined: <?php echo substr($fetchr['joindate'], 0, 7); ?>
+                                Joined: <?php echo substr($fetchr['joindate'], 5, 2) . '-' . substr($fetchr['joindate'], 0, 4); ?>
                             </td>
                         </tr>
                     </table>
@@ -179,7 +180,7 @@
                     //$thread = strip_tags($thread, '<h1><h2><h3><h4><h5><h6><pre><blockquote><p><b><i><u><font><span><ul><li><table><tr><td><a><img><hr><br>');
 
                     setcookie('send', 'wait', time()+$waitTime);
-                    
+
                     echo perry('INSERT INTO threadpost (t_id, u_id, content) VALUES (:t_id, :u_id, :content)', [':t_id'=> $_GET['thread'], ':u_id' => $fetchUser['u_id'], ':content' => $threadpost]);
 
                     header('Location:' . $website_url . 'thread/' . $_GET['thread']);
