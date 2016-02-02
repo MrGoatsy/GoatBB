@@ -15,6 +15,14 @@ CREATE TABLE IF NOT EXISTS users(
     UNIQUE KEY (`email`)
 )Engine=InnoDB;
 
+CREATE TABLE IF NOT EXISTS reputation(
+    `rep_id` int(10) NOT NULL auto_increment,
+    `u_id_sender` int(10) NOT NULL,
+    `u_id_recipient` int(10) NOT NULL,
+    `repDesc` varchar(255) NOT NULL,
+    PRIMARY KEY (`rep_id`)
+)Engine=InnoDB;
+
 CREATE TABLE IF NOT EXISTS ranks(
     `r_id` int(10) NOT NULL auto_increment,
     `rankName` varchar(255) NOT NULL,
