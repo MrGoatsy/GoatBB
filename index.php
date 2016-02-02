@@ -9,9 +9,6 @@
 
         $fetchUser = $queryUser->fetch(PDO::FETCH_ASSOC);
 
-        $queryRank = $handler->query('SELECT * FROM ranks WHERE rankValue =' . $fetchUser['rank']);
-        $fetchRank = $queryRank->fetch(PDO::FETCH_ASSOC);
-
         if($fetchUser['banned'] == 1){
             $banned = 1;
         }
@@ -53,28 +50,30 @@
           	<div class="row">
           		<div class="col-md-12">
                       <div class="row">
-                          <?php
-                              if(isset($_GET['p'])){
-                                  if(file_exists('pages/' . $_GET['p'] . '.php')){
-                                      include'pages/' . $_GET['p'] . '.php';
-                                  }
-                                  else{
-                                      echo $pagedoesnotexist;
-                                  }
-                              }
-                              elseif(isset($_GET['section'])){
-                                  require_once'pages/section.php';
-                              }
-                              elseif(isset($_GET['thread'])){
-                                  require_once'pages/thread.php';
-                              }
-                              elseif($banned === 1){
-                                  require_once'pages/banned.php';
-                              }
-                              else{
-                                  include'pages/home.php';
-                              }
-                           ?>
+                            <?php
+                                if($banned == 1){
+                                    require_once'pages/banned.php';
+                                }
+                                else{
+                                    if(isset($_GET['p'])){
+                                      if(file_exists('pages/' . $_GET['p'] . '.php')){
+                                          include'pages/' . $_GET['p'] . '.php';
+                                      }
+                                      else{
+                                          echo $pagedoesnotexist;
+                                      }
+                                    }
+                                    elseif(isset($_GET['section'])){
+                                      require_once'pages/section.php';
+                                    }
+                                    elseif(isset($_GET['thread'])){
+                                      require_once'pages/thread.php';
+                                    }
+                                    else{
+                                      include'pages/home.php';
+                                    }
+                                }
+                            ?>
                       </div>
           		</div>
           	</div>

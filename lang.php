@@ -38,7 +38,16 @@
      $accountactivated  = "Your account has been activated.";                   //Account has been activated
      $notactive         = "Your account has not yet been activated.";           //Account not activated
      $doesnotexist      = "That code does not exist.";                          //Invalid code
-     $banned             = "You have been banned from this forum";               //Banned
+     $banned            = "You have been banned from this forum";               //Banned
+
+     /**
+     * Profile system
+     **/
+
+     $repError          = "You tried to add more or less reputation than you are allowed to.";  //User tried to add invalid amount for reputation
+     $addRepToSelf      = "You can't add reputation to yourself";               //Self repping
+     $repAdded          = "Reputation successfully added.";                     //Reputation was added
+     $repUpdated        = "Reputation successfully updated.";                   //Reputation was updated
 
      /**
       * Page handling

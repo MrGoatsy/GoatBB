@@ -11,13 +11,19 @@
             echo $error;
         }
 
-        $fetch = $query->fetch(PDO::FETCH_ASSOC);
+        if($query->rowCount()){
+            $fetch = $query->fetch(PDO::FETCH_ASSOC);
 
-        $queryT = $handler->query('SELECT COUNT(*) FROM thread WHERE u_id =' . $fetch['u_id']);
-        $queryP = $handler->query('SELECT COUNT(*) FROM threadpost WHERE u_id =' . $fetch['u_id']);
+            $queryRank = $handler->query('SELECT * FROM ranks WHERE rankValue =' . $fetch['rank']);
+            $fetchRank = $queryRank->fetch(PDO::FETCH_ASSOC);
 
-        $fetchTcount = $queryT->fetch(PDO::FETCH_NUM);
-        $fetchPcount = $queryP->fetch(PDO::FETCH_NUM);
+            $queryT = $handler->query('SELECT (SELECT count(*) FROM thread WHERE u_id =' . $fetch['u_id'] . ') as threadCount, (SELECT count(*) FROM threadpost WHERE u_id =' . $fetch['u_id'] . ') as postCount, (SELECT sum(repAmount) FROM reputation WHERE u_id_recipient =' . $fetch['u_id'] . ') as reputation');
+            $fetchDetails = $queryT->fetch(PDO::FETCH_ASSOC);
+
+            if(isset($_GET['giveReputation'])){
+                echo giveReputation();
+            }
+            else{
 ?>
 <div class="col-md-12">
     <h2>Profile</h2>
@@ -50,11 +56,11 @@
                         </tr>
                         <tr>
                             <td style="width: 10%;"><span class="profileSpan">Posts:</span></td>
-                            <td style="width: 20%;"><span class="profileSpan"><?php echo $fetchTcount[0] + $fetchPcount[0]; ?></span></td>
+                            <td style="width: 20%;"><span class="profileSpan"><?php echo $fetchDetails['threadCount'] + $fetchDetails['postCount']; ?></span></td>
                         </tr>
                         <tr>
                             <td style="width: 10%;"><span class="profileSpan">Reputation:</span></td>
-                            <td style="width: 20%;"><span class="profileSpan">0</span></td>
+                            <td style="width: 20%;"><span class="profileSpan"><?php echo $fetchDetails['reputation'] ?> <?php echo (($fetchUser['u_id'] != $fetch['u_id'] && isset($_SESSION['user']))? '<a href="' . $website_url . 'p/profile?userid=' . $fetch['u_id'] . '&giveReputation">[Give reputation]</a>' : ''); ?></span></td>
                         </tr>
                         <tr>
                             <td style="width: 10%;"><span class="profileSpan">Website:</span></td>
@@ -79,6 +85,11 @@
     </div>
 </div>
 <?php
+            }
+        }
+        else{
+            echo $pagedoesnotexist;
+        }
     }
     else{
         echo $pagedoesnotexist;
