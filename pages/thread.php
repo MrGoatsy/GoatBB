@@ -120,7 +120,8 @@
                 $queryU = $handler->query('SELECT * FROM users WHERE u_id =' . $fetch['u_id']);
                 $queryT = $handler->query('SELECT COUNT(*) FROM thread WHERE u_id =' . $fetch['u_id']);
                 $queryP = $handler->query('SELECT COUNT(*) FROM threadpost WHERE u_id =' . $fetch['u_id']);
-
+                $querySignature = $handler->query('SELECT * FROM users WHERE u_id =' . $fetch['u_id']);
+                $fetchSignature = $querySignature->fetch(PDO::FETCH_ASSOC);
                 $uFetch = $queryU->fetch(PDO::FETCH_ASSOC);
                 $fetchTcount = $queryT->fetch(PDO::FETCH_NUM);
                 $fetchPcount = $queryP->fetch(PDO::FETCH_NUM);
