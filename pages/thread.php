@@ -8,6 +8,9 @@
         $fetch = $query->fetch(PDO::FETCH_ASSOC);
 
         if($query->rowCount() && $fetch['archived'] == 0){
+            $querySignature = $handler->query('SELECT * FROM users WHERE u_id =' . $fetch['u_id']);
+            $fetchSignature = $querySignature->fetch(PDO::FETCH_ASSOC);
+
             if(isset($_GET['archive'])){
                 perry('UPDATE thread SET archived = 1 WHERE t_id = :t_id', [':t_id' => $_GET['thread']], false);
                 perry('UPDATE threadpost SET archived = 1 WHERE t_id = :t_id', [':t_id' => $_GET['thread']], false);
@@ -88,7 +91,11 @@
                 </td>
             </tr>
             <tr>
-                <td><?php echo $fetch['content']; ?></td>
+                <td>
+                    <?php echo $fetch['content']; ?>
+                    <hr />
+                    <?php echo $fetchSignature['signature']; ?>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -134,7 +141,11 @@
                 </td>
             </tr>
             <tr>
-                <td><?php echo $fetch['content']; ?></td>
+                <td>
+                    <?php echo $fetch['content']; ?>
+                    <hr />
+                    <?php echo $fetchSignature['signature']; ?>
+                </td>
             </tr>
             <tr>
                 <td><a href="" class="btn btn-primary pull-right">Report</a></td>
@@ -179,11 +190,16 @@
                     $threadpost = $purifier->purify($threadpost);
                     //$thread = strip_tags($thread, '<h1><h2><h3><h4><h5><h6><pre><blockquote><p><b><i><u><font><span><ul><li><table><tr><td><a><img><hr><br>');
 
-                    setcookie('send', 'wait', time()+$waitTime);
+                    if(strlen($threadpost)){
+                        setcookie('send', 'wait', time()+$waitTime);
 
-                    echo perry('INSERT INTO threadpost (t_id, u_id, content) VALUES (:t_id, :u_id, :content)', [':t_id'=> $_GET['thread'], ':u_id' => $fetchUser['u_id'], ':content' => $threadpost]);
+                        echo perry('INSERT INTO threadpost (t_id, u_id, content) VALUES (:t_id, :u_id, :content)', [':t_id'=> $_GET['thread'], ':u_id' => $fetchUser['u_id'], ':content' => $threadpost]);
 
-                    header('Location:' . $website_url . 'thread/' . $_GET['thread']);
+                        header('Location:' . $website_url . 'thread/' . $_GET['thread']);
+                    }
+                    else{
+                        echo $messageTooShort;
+                    }
                 }
                 else{
                     echo $emptyerror;

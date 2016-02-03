@@ -17,7 +17,9 @@
     $lastCategory       = "You can't delete the last category.";                //You can't delete the last category
     $invalidchartitle   = "You can only use letters and numbers in your title"; //Invalid characters
     $waitTime           = 5;                                                    //Wait time in seconds
+    $char               = 25;                                                   //Character minimum
     $pleaseWait         = "Please wait $waitTime before posting again.";        //Please wait
+    $messageTooShort    = "Your message needs to be at least $char characters long"; //Message too short
 
     /**
      * Login & Register
@@ -48,6 +50,7 @@
      $addRepToSelf      = "You can't add reputation to yourself";               //Self repping
      $repAdded          = "Reputation successfully added.";                     //Reputation was added
      $repUpdated        = "Reputation successfully updated.";                   //Reputation was updated
+     $profileUpdated    = "Your profile was successfully updated.";             //Profile updated
 
      /**
       * Page handling

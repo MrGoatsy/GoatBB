@@ -36,7 +36,7 @@
                             <tr>
                                 <td class="threadtd" style="width: 64px;"><img src="http://i.imgur.com/q9DFazz.png" alt="" class="avatar" style="width: 96px; height: 96px;" /></td>
                                 <td class="threadtd">
-                                    <span style="font-size: 20px;"><?php echo $fetch['username']; ?></span><br />
+                                    <span style="font-size: 20px;"><?php echo $fetch['username']; ?></span> <?php echo (($fetchUser['u_id'] == $fetch['u_id'] && isset($_SESSION['user']))? '<a href="' . $website_url . '/p/editProfile">[Edit]</a>' : ''); ?><br />
                                     <?php echo $fetchRank['rankName']; ?>
                                 </td>
                             </tr>
@@ -60,7 +60,7 @@
                         </tr>
                         <tr>
                             <td style="width: 10%;"><span class="profileSpan">Reputation:</span></td>
-                            <td style="width: 20%;"><span class="profileSpan"><?php echo $fetchDetails['reputation'] ?> <?php echo (($fetchUser['u_id'] != $fetch['u_id'] && isset($_SESSION['user']))? '<a href="' . $website_url . 'p/profile?userid=' . $fetch['u_id'] . '&giveReputation">[Give reputation]</a>' : ''); ?></span></td>
+                            <td style="width: 20%;"><span class="profileSpan"><?php echo ((isset($fetchDetails['reputation'])? $fetchDetails['reputation'] : '0')); ?> <?php echo (($fetchUser['u_id'] != $fetch['u_id'] && isset($_SESSION['user']))? '<a href="' . $website_url . 'p/profile?userid=' . $fetch['u_id'] . '&giveReputation">[Give reputation]</a>' : ''); ?></span></td>
                         </tr>
                         <tr>
                             <td style="width: 10%;"><span class="profileSpan">Website:</span></td>

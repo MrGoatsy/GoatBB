@@ -46,30 +46,46 @@
 <?php
                 if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     if(isset($_POST['postThread'])){
-                        if(!empty($_POST['title']) && !empty($_POST['thread'])){
-                            $title = htmlentities($_POST['title'], ENT_QUOTES);
-                                $thread = $_POST['thread'];
-                                $thread = $purifier->purify($thread);
-                                //$thread = strip_tags($thread, '<h1><h2><h3><h4><h5><h6><pre><blockquote><p><b><i><u><font><span><ul><li><table><tr><td><a><img><hr><br>');
+                        if(!isset($_COOKIE['send'])){
+                            if(!empty($_POST['title']) && !empty($_POST['thread'])){
+                                $title = htmlentities($_POST['title'], ENT_QUOTES);
+                                    $thread = $_POST['thread'];
+                                    $thread = $purifier->purify($thread);
+                                    //$thread = strip_tags($thread, '<h1><h2><h3><h4><h5><h6><pre><blockquote><p><b><i><u><font><span><ul><li><table><tr><td><a><img><hr><br>');
 
-                                echo perry('INSERT INTO thread (sc_id, u_id, title, content) VALUES (:sc_id, :u_id, :title, :content)', [':sc_id'=> $section, ':u_id' => $fetchUser['u_id'], 'title' => $title, ':content' => $thread]);
+                                    if(strlen($threadpost)){
+                                        setcookie('send', 'wait', time()+$waitTime);
 
-                                $threadId = $handler->prepare('SELECT * FROM thread WHERE title = :title ORDER BY postdate DESC');
+                                        echo perry('INSERT INTO thread (sc_id, u_id, title, content) VALUES (:sc_id, :u_id, :title, :content)', [':sc_id'=> $section, ':u_id' => $fetchUser['u_id'], 'title' => $title, ':content' => $thread]);
 
-                                try{
-                                    $threadId->execute([
-                                        ':title' => $title
-                                    ]);
-                                }catch(PDOException $e){
-                                    echo $error;
-                                }
+                                        $threadId = $handler->prepare('SELECT * FROM thread WHERE title = :title ORDER BY postdate DESC');
 
-                                $fetchThreadId = $threadId->fetch(PDO::FETCH_ASSOC);
+                                        try{
+                                            $threadId->execute([
+                                                ':title' => $title
+                                            ]);
+                                        }catch(PDOException $e){
+                                            echo $error;
+                                        }
 
-                                header('Location: ' . $website_url . 'thread/' . $fetchThreadId['t_id']);
+                                        $fetchThreadId = $threadId->fetch(PDO::FETCH_ASSOC);
+
+                                        header('Location: ' . $website_url . 'thread/' . $fetchThreadId['t_id']);
+                                    }
+                                    else{
+                                        echo $messageTooShort;
+                                    }
+                            }
+                            else{
+                                echo $emptyerror;
+                            }
                         }
                         else{
-                            echo $emptyerror;
+                            echo'
+                                <div class="alert alert-danger fade in">
+                                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                  ' . $pleaseWait . '
+                                </div>';
                         }
                     }
                 }
