@@ -36,7 +36,46 @@
                         </tr>
                 <?php
                     while($fetch = $query->fetch(PDO::FETCH_ASSOC)){
-                        $rQuery = $handler->query('SELECT COUNT(t.t_id) AS threadCount, SUM(t.postCount) AS postCount, t.lastdate, t.idFix FROM (SELECT t.t_id, CASE WHEN NOT ISNULL(p.postdate) AND p.postdate > t.postdate THEN p.postdate ELSE t.postdate END AS lastdate, CASE WHEN NOT ISNULL(p.u_id) THEN p.u_id ELSE t.u_id END AS idFix, COUNT(p.p_id) AS postCount FROM thread t LEFT OUTER JOIN (SELECT p.p_id, p.t_id, p.u_id, p.postdate FROM threadpost p ORDER BY p.postdate DESC) p ON p.t_id = t.t_id WHERE t.sc_id = '.$fetch['sc_id'].' GROUP BY t.t_id ORDER BY lastdate DESC) t');
+                        $rQuery = $handler->query('
+                          SELECT
+                              COUNT(t.t_id) AS threadCount,
+                              SUM(t.postCount) AS postCount,
+                              t.lastdate,
+                              t.idFix
+                          FROM (
+                              SELECT
+                                  t.t_id,
+                                  CASE WHEN NOT ISNULL(p.postdate) AND p.postdate > t.postdate THEN
+                                      p.postdate
+                                  ELSE
+                                      t.postdate
+                                  END AS lastdate,
+                                  CASE WHEN NOT ISNULL(p.u_id) THEN
+                                      p.u_id
+                                  ELSE
+                                      t.u_id
+                                  END AS idFix,
+                                  COUNT(p.p_id) AS postCount
+                              FROM
+                                  thread t
+                              LEFT OUTER JOIN
+                                  (
+                                      SELECT
+                                          p.p_id,
+                                          p.t_id,
+                                          p.u_id,
+                                          p.postdate
+                                      FROM
+                                          threadpost p
+                                      ORDER BY
+                                          p.postdate DESC
+                                  ) p ON p.t_id = t.t_id
+                              WHERE
+                                  t.sc_id = '.$fetch['sc_id'].'
+                              GROUP BY t.t_id
+                              ORDER BY lastdate DESC
+                         ) t');
+
                         $rFetch = $rQuery->fetch(PDO::FETCH_ASSOC);
                         $postedBy = $handler->prepare('SELECT * FROM users WHERE u_id = :u_id');
                         try{
