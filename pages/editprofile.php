@@ -41,8 +41,9 @@
                         $signature = $purifier->purify($_POST['signature']);
 
                         if(urlCheck($website)){
-                            echo perry('UPDATE users SET website = :website, signature = :signature', [':website' => $website, ':signature' => $signature]);
-                            echo $profileUpdated;
+                            echo perry('UPDATE users SET website = :website, signature = :signature WHERE u_id =' . $fetchUser['u_id'], [':website' => $website, ':signature' => $signature]);
+
+                            header('Location: ' . $website_url . 'p/editProfile');
                         }
                     }
                  ?>

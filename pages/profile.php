@@ -23,6 +23,9 @@
             if(isset($_GET['giveReputation'])){
                 echo giveReputation();
             }
+            elseif(isset($_GET['reputationOverview'])){
+                require_once'reputationoverview.php';
+            }
             else{
 ?>
 <div class="col-md-12">
@@ -36,7 +39,7 @@
                             <tr>
                                 <td class="threadtd" style="width: 64px;"><img src="http://i.imgur.com/q9DFazz.png" alt="" class="avatar" style="width: 96px; height: 96px;" /></td>
                                 <td class="threadtd">
-                                    <span style="font-size: 20px;"><?php echo $fetch['username']; ?></span> <?php echo (($fetchUser['u_id'] == $fetch['u_id'] && isset($_SESSION['user']))? '<a href="' . $website_url . '/p/editProfile">[Edit]</a>' : ''); ?><br />
+                                    <span style="font-size: 20px;"><?php echo $fetch['username']; ?></div> <?php echo (($fetchUser['u_id'] == $fetch['u_id'] && isset($_SESSION['user']))? '<a href="' . $website_url . 'p/editProfile">[Edit]</a>' : ''); ?><br />
                                     <?php echo $fetchRank['rankName']; ?>
                                 </td>
                             </tr>
@@ -48,23 +51,26 @@
         		<div class="col-md-5">
                     <table style="width: 100%;" border=1>
                         <tr>
-                            <td colspan="2"><span class="profileSpan"><strong>Profile information</strong></span></td>
+                            <td colspan="2"><div class="profileSpan"><strong>Profile information</strong></div></td>
                         </tr>
                         <tr>
-                            <td style="width: 10%;"><span class="profileSpan">Joined:</span></td>
-                            <td style="width: 20%;"><span class="profileSpan"><?php echo substr($fetch['joindate'], 0, 7); ?></span></td>
+                            <td style="width: 10%;"><div class="profileSpan">Joined:</div></td>
+                            <td style="width: 20%;"><div class="profileSpan"><?php echo substr($fetch['joindate'], 0, 7); ?></div></td>
                         </tr>
                         <tr>
-                            <td style="width: 10%;"><span class="profileSpan">Posts:</span></td>
-                            <td style="width: 20%;"><span class="profileSpan"><?php echo $fetchDetails['threadCount'] + $fetchDetails['postCount']; ?></span></td>
+                            <td style="width: 10%;"><div class="profileSpan">Posts:</div></td>
+                            <td style="width: 20%;"><div class="profileSpan"><?php echo $fetchDetails['threadCount'] + $fetchDetails['postCount']; ?></div></td>
                         </tr>
                         <tr>
-                            <td style="width: 10%;"><span class="profileSpan">Reputation:</span></td>
-                            <td style="width: 20%;"><span class="profileSpan"><?php echo ((isset($fetchDetails['reputation'])? $fetchDetails['reputation'] : '0')); ?> <?php echo (($fetchUser['u_id'] != $fetch['u_id'] && isset($_SESSION['user']))? '<a href="' . $website_url . 'p/profile?userid=' . $fetch['u_id'] . '&giveReputation">[Give reputation]</a>' : ''); ?></span></td>
+                            <td style="width: 10%;"><div class="profileSpan">Reputation:</div></td>
+                            <td style="width: 20%;"><div class="profileSpan">
+                                <?php echo ((isset($fetchDetails['reputation'])? $fetchDetails['reputation'] : '0')); ?> <?php echo (($fetchUser['u_id'] != $fetch['u_id'] && isset($_SESSION['user']))? '<a href="' . $website_url . 'p/profile?userid=' . $fetch['u_id'] . '&giveReputation">[Give reputation]</a>' : ''); ?>
+                                <?php echo '<a href="' . $website_url . 'p/profile?userid=' . $fetch['u_id'] . '&reputationOverview">[Overview]</a>'; ?>
+                            </div></td>
                         </tr>
                         <tr>
-                            <td style="width: 10%;"><span class="profileSpan">Website:</span></td>
-                            <td style="width: 20%;"><span class="profileSpan"><?php echo ((!empty($fetch['website'])? "<a href='{$fetch['website']}'>{$fetch['website']}</a>" : 'None')); ?></span></td>
+                            <td style="width: 10%;"><div class="profileSpan">Website:</div></td>
+                            <td style="width: 20%;"><div class="profileSpan"><?php echo ((!empty($fetch['website'])? "<a href='{$fetch['website']}'>{$fetch['website']}</a>" : 'None')); ?></div></td>
                         </tr>
                     </table>
         		</div>
@@ -73,10 +79,10 @@
         		<div class="col-md-6">
                     <table style="width: 100%;" border=1>
                         <tr>
-                            <td colspan="2"><span class="profileSpan"><strong>Signature</strong></span></td>
+                            <td colspan="2"><div class="profileSpan"><strong>Signature</strong></div></td>
                         </tr>
                         <tr>
-                            <td style="height: 150px;"><span class="profileSpan"><?php echo $fetch['signature']; ?></span></td>
+                            <td style="height: 150px; vertical-align: top;"><div style="margin-left: 5px;"><?php echo $fetch['signature']; ?></div></td>
                         </tr>
                     </table>
         		</div>
