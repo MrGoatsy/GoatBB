@@ -9,8 +9,11 @@
 
         $fetchUser = $queryUser->fetch(PDO::FETCH_ASSOC);
 
-        if($fetchUser['banned'] == 1){
+        if($fetchUser['rank'] == 0){
             $banned = 1;
+        }
+        else{
+            $banned = 0;
         }
     }
     else{
@@ -51,7 +54,7 @@
           		<div class="col-md-12">
                       <div class="row">
                             <?php
-                                if($banned == 1){
+                                if($banned === 1){
                                     require_once'pages/banned.php';
                                 }
                                 else{

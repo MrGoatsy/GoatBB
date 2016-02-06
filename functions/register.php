@@ -13,6 +13,9 @@
         global $tooshort;
         global $website_url;
         global $contactemail;
+        global $mailer;
+        global $mail;
+        global $error;
 
         if(!empty($_POST['username'])){
             if(!empty($_POST['email'])){
@@ -59,7 +62,21 @@
                                                         ':rank'         => $rank
                                                     ));
 
-                                                    mail($email, 'Account activation', "Please click this link to activate your account:\r\n" . $website_url . "?p=activate&code=" . $email_code, "From: $contactemail");
+                                                    if($mailer === '0'){
+                                                        mail($email, 'Account activation', "Please click this link to activate your account:\r\n" . $website_url . "?p=activate&code=" . $email_code, "From: $contactemail");
+                                                    }
+                                                    elseif($mailer === '1'){
+                                                        $mail->setFrom($contactemail);
+                                                        $mail->addAddress($email);     // Add a recipient
+                                                        $mail->isHTML(true);                                  // Set email format to HTML
+
+                                                        $mail->Subject = 'Account activation';
+                                                        $mail->Body    = "Please click this link to activate your account:\r\n" . $website_url . "?p=activate&code=" . $email_code;
+
+                                                        if(!$mail->send()){
+                                                            echo $error;
+                                                        }
+                                                    }
 
                                                     return $regsuccess;
                                                     }

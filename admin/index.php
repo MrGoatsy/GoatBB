@@ -9,7 +9,7 @@
 
         $fetchUser = $queryUser->fetch(PDO::FETCH_ASSOC);
 
-        if($fetchUser['banned'] == 1){
+        if($fetchUser['rank'] == 0){
             header('Location: index.php');
         }
     }

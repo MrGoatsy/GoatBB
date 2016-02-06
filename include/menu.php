@@ -28,6 +28,11 @@
                             </li>
                             ';
                         }
+                        echo'
+                        <li>
+                            <a href="' . $website_url . 'p/logout">Log out</a>
+                        </li>
+                        ';
                     }
                     else{
                         echo'

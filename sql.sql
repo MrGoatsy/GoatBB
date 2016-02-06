@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS users(
     `email_code` varchar(32) NOT NULL,
     `rank` int(10) DEFAULT '1',
     `active` BOOLEAN DEFAULT '0',
-    `banned` BOOLEAN DEFAULT '0',
     PRIMARY KEY `u_id` (`u_id`),
     UNIQUE KEY (`username`),
     UNIQUE KEY (`email`)
