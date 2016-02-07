@@ -73,5 +73,5 @@
       **/
 
       $perpage          = 9;                                                   //Maximum results per page
-      $noResultsDisplay = "There are no results on this page";                  //Invalid pagenumber
+      $noResultsDisplay = "There are no results on this page";                 //Invalid pagenumber
 ?>
