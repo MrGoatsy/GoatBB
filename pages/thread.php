@@ -81,7 +81,7 @@
                     <table style="width: 100%;">
                         <tr>
                             <td class="threadtd" style="width: 64px;"><img src="" alt="" class="avatar" /></td>
-                            <td class="threadtd"><?php echo $fetchr['username']; ?></td>
+                            <td class="threadtd"><a href="<?php echo $website_url . 'p/profile?userid=' . $fetchr['u_id']; ?>"><?php echo $fetchr['username']; ?></a></td>
                             <td class="threadtd pull-right">
                                 Posts: <?php echo $fetchTcount[0] + $fetchPcount[0]; ?><br />
                                 Joined: <?php echo substr($fetchr['joindate'], 5, 2) . '-' . substr($fetchr['joindate'], 0, 4); ?>
@@ -92,9 +92,14 @@
             </tr>
             <tr>
                 <td>
-                    <?php echo $fetch['content']; ?>
-                    <hr />
-                    <?php echo $fetchSignature['signature']; ?>
+                    <?php
+                        echo $fetch['content'];
+
+                        if(!empty($fetchSignature['signature'])){
+                            echo'<hr />';
+                            echo $fetchSignature['signature'];
+                        }
+                     ?>
                 </td>
             </tr>
             <tr>
@@ -132,7 +137,7 @@
                     <table style="width: 100%;">
                         <tr>
                             <td class="threadtd" style="width: 64px;"><img src="" alt="" class="avatar" /></td>
-                            <td class="threadtd"><?php echo $uFetch['username']; ?></td>
+                            <td class="threadtd"><a href="<?php echo $website_url . 'p/profile?userid=' . $uFetch['u_id']; ?>"><?php echo $uFetch['username']; ?></a></td>
                             <td class="threadtd pull-right">
                                 Posts: <?php echo $fetchTcount[0] + $fetchPcount[0]; ?><br />
                                 Joined: <?php echo substr($fetchr['joindate'], 5, 2) . '-' . substr($fetchr['joindate'], 0, 4); ?>
@@ -143,9 +148,14 @@
             </tr>
             <tr>
                 <td>
-                    <?php echo $fetch['content']; ?>
-                    <hr />
-                    <?php echo $fetchSignature['signature']; ?>
+                    <?php
+                        echo $fetch['content'];
+
+                        if(!empty($fetchSignature['signature'])){
+                            echo'<hr />';
+                            echo $fetchSignature['signature'];
+                        }
+                    ?>
                 </td>
             </tr>
             <tr>

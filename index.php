@@ -33,12 +33,15 @@
 
     <link href="<?php echo $website_url; ?>css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo $website_url; ?>css/custom.css" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
+    <!-- include libraries(jQuery, bootstrap) -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-    <link href="<?php echo $website_url; ?>dist/summernote.css" rel="stylesheet">
-    <script src="<?php echo $website_url; ?>dist/summernote.js"></script>
+
+    <!-- include summernote css/js-->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.0/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.0/summernote.js"></script>
     <script src="<?php echo $website_url; ?>js/script.js"></script>
     <link href="<?php echo $website_url; ?>css/main.css" rel="stylesheet">
 

@@ -11,10 +11,11 @@
 
     header('Content-Type: text/html; charset=utf-8');
     $path = str_replace($_SERVER['DOCUMENT_ROOT'], $_SERVER['SERVER_NAME'] . '/', dirname(__FILE__));
-    $mysqldb    = 'localhost';  //Mysql database
-    $dbname     = 'goatbb';           //Mysql database name
-    $mysqluser  = '';           //Mysql username
-    $mysqlpass  = '';           //Mysql password
+
+    $mysqldb    = 'localhost';  //Your Mysql database
+    $dbname     = 'goatbb';     //Your Mysql database name
+    $mysqluser  = 'root';       //Your Mysql username
+    $mysqlpass  = '';           //Your Mysql password
 
     try{
         $handler = new PDO('mysql:host=' . $mysqldb . ';dbname=' . $dbname, $mysqluser, $mysqlpass);
@@ -24,24 +25,27 @@
         //die('Something went wrong, please try again.');
     }
 
-    $website_url = "http://$_SERVER[HTTP_HOST]/goatbb/";
-    $contactemail = "";
+    $forumMap   = "GoatBB_GitHub/";   //What map did you put the forum? Leave empty for root
+    $website_url = 'http://' . $_SERVER['HTTP_HOST'] . '/' . $forumMap; //Do not edit this
+    $contactemail = "noreply@ayy.pw"; //Admin contact email
 
     require_once'lang.php';
     require_once'init.php';
     require_once'htmlpurifier/HTMLPurifier.auto.php';
-    require'phpmailer/PHPMailerAutoload.php';
-    $mailer = '1';
-
-    $mail = new PHPMailer;
-    $mail->isSMTP();                                      // Set mailer to use SMTP
-    $mail->Host = '';  // Specify main and backup SMTP servers
-    $mail->SMTPAuth = true;                               // Enable SMTP authentication
-    $mail->Username = '';                 // SMTP username
-    $mail->Password = '';                           // SMTP password
-    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-    $mail->Port = 2525;                                    // TCP port to connect to
+    require'phpmailer/PHPMailerAutoload.php';                                  // TCP port to connect to
 
     $config = HTMLPurifier_Config::createDefault();
     $purifier = new HTMLPurifier($config);
+
+    $mailer = '1';  //0 for PHP mail function 1 for PHPMailer class
+
+    $mail = new PHPMailer;
+    $mail->isSMTP();            // Set mailer to use SMTP
+    $mail->Host = '';           // Specify main and backup SMTP servers
+    $mail->SMTPAuth = true;     // Enable SMTP authentication
+    $mail->Username = '';       // SMTP username
+    $mail->Password = '';       // SMTP password
+    $mail->SMTPSecure = 'tls';  // Enable TLS encryption, `ssl` also accepted
+    $mail->Port = 2525;         // TCP port to connect to
+
 ?>
