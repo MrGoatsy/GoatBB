@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS users(
     `joindate` datetime NOT NULL DEFAULT NOW(),
     `website` varchar(255),
     `signature` varchar(1000),
+    `avatar` varchar(255),
     `email` varchar(255) NOT NULL,
     `email_code` varchar(32) NOT NULL,
     `rank` int(10) DEFAULT '1',
@@ -27,15 +28,18 @@ CREATE TABLE IF NOT EXISTS ranks(
     `r_id` int(10) NOT NULL auto_increment,
     `rankName` varchar(255) NOT NULL,
     `rankValue` int(10),
+    `maxRep` int(10),
+    `minRep` int(10),
     PRIMARY KEY (`r_id`),
     UNIQUE KEY (`rankValue`)
 )Engine=InnoDB;
 
-INSERT INTO ranks (rankName, rankValue) VALUES ('Admin', 999);
-INSERT INTO ranks (rankName, rankValue) VALUES ('Moderator', 950);
-INSERT INTO ranks (rankName, rankValue) VALUES ('Premium', 100);
-INSERT INTO ranks (rankName, rankValue) VALUES ('User', 1);
-INSERT INTO ranks (rankName, rankValue) VALUES ('Banned', 0);
+INSERT INTO `ranks` (`rankName`, `rankValue`, `maxRep`, `minRep`) VALUES
+('Admin', 999, 10, -10),
+('Moderator', 950, 5, -5),
+('Premium', 100, 3, -3),
+('User', 1, 1, -1),
+('Banned', 0, NULL, NULL);
 
 CREATE TABLE IF NOT EXISTS warnings(
     `w_id` int(10) NOT NULL auto_increment,

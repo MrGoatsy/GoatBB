@@ -21,10 +21,10 @@
             $fetchDetails = $queryT->fetch(PDO::FETCH_ASSOC);
 
             if(isset($_GET['giveReputation'])){
-                echo giveReputation();
+                require_once'profile/giveReputation.php';
             }
             elseif(isset($_GET['reputationOverview'])){
-                require_once'reputationoverview.php';
+                require_once'profile/reputationoverview.php';
             }
             else{
 ?>
@@ -37,9 +37,9 @@
                     <td colspan="4">
                         <table style="width: 100%;">
                             <tr>
-                                <td class="threadtd" style="width: 64px;"><img src="http://i.imgur.com/q9DFazz.png" alt="" class="avatar" style="width: 96px; height: 96px;" /></td>
+                                <td class="threadtd" style="width: 64px;"><img src="<?php echo $website_url . 'images/avatars/' . $fetch['avatar']; ?>" alt="" class="avatar" style="width: 96px; height: 96px;" /></td>
                                 <td class="threadtd">
-                                    <span style="font-size: 20px;"><?php echo $fetch['username']; ?></div> <?php echo (($fetchUser['u_id'] == $fetch['u_id'] && isset($_SESSION['user']))? '<a href="' . $website_url . 'p/editProfile">[Edit]</a>' : ''); ?><br />
+                                    <span style="font-size: 20px;"><?php echo $fetch['username']; ?></div> <?php echo (($fetchUser['u_id'] == $fetch['u_id'] && isset($_SESSION['user']))? '<a href="' . $website_url . 'p/editprofile">[Edit]</a>' : ''); ?><br />
                                     <?php echo $fetchRank['rankName']; ?>
                                 </td>
                             </tr>

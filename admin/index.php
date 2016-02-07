@@ -25,9 +25,9 @@
 
     <meta name="author" content="Tom Heek">
 
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/main.css" rel="stylesheet">
-    <link href="../css/custom.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
 
   </head>
   <body>
@@ -35,7 +35,7 @@
       <div class="container-fluid">
         <?php
             if(isset($_SESSION['user'])){
-                if($fetchUser['rank'] >= 900){
+                if($fetchUser['rank'] >= 990){
         ?>
       	<div class="row">
       		<div class="col-md-12">

@@ -80,7 +80,7 @@
                 <td>
                     <table style="width: 100%;">
                         <tr>
-                            <td class="threadtd" style="width: 64px;"><img src="" alt="" class="avatar" /></td>
+                            <td class="threadtd" style="width: 64px;"><img src="<?php echo $website_url . 'images/avatars/' . $fetchr['avatar']; ?>" alt="" class="avatar" /></td>
                             <td class="threadtd"><a href="<?php echo $website_url . 'p/profile?userid=' . $fetchr['u_id']; ?>"><?php echo $fetchr['username']; ?></a></td>
                             <td class="threadtd pull-right">
                                 Posts: <?php echo $fetchTcount[0] + $fetchPcount[0]; ?><br />
@@ -136,11 +136,11 @@
                 <td>
                     <table style="width: 100%;">
                         <tr>
-                            <td class="threadtd" style="width: 64px;"><img src="" alt="" class="avatar" /></td>
+                            <td class="threadtd" style="width: 64px;"><img src="<?php echo $website_url . 'images/avatars/' . $uFetch['avatar']; ?>" alt="" class="avatar" /></td>
                             <td class="threadtd"><a href="<?php echo $website_url . 'p/profile?userid=' . $uFetch['u_id']; ?>"><?php echo $uFetch['username']; ?></a></td>
                             <td class="threadtd pull-right">
                                 Posts: <?php echo $fetchTcount[0] + $fetchPcount[0]; ?><br />
-                                Joined: <?php echo substr($fetchr['joindate'], 5, 2) . '-' . substr($fetchr['joindate'], 0, 4); ?>
+                                Joined: <?php echo substr($uFetch['joindate'], 5, 2) . '-' . substr($uFetch['joindate'], 0, 4); ?>
                             </td>
                         </tr>
                     </table>

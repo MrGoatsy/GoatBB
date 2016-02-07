@@ -1,11 +1,16 @@
 <?php
     //Check if the url is safe.
     function urlCheck($string){
-        if(filter_var($string, FILTER_VALIDATE_URL)){
+        if(empty($string)){
             return true;
         }
         else{
-            return false;
+            if(filter_var($string, FILTER_VALIDATE_URL)){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
     }
  ?>

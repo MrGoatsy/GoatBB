@@ -51,6 +51,16 @@
      $repAdded          = "Reputation successfully added.";                     //Reputation was added
      $repUpdated        = "Reputation successfully updated.";                   //Reputation was updated
      $profileUpdated    = "Your profile was successfully updated.";             //Profile updated
+     $notAWebsite       = "That is not a valid website.";                       //Invalid website
+
+     /**
+     * Avatar uploading
+     **/
+
+     $imageNotAllowed   = "That type of image is not allowed.";                 //Image not allowed
+     $imageTooBig       = "Your avatar is too big.";                            //Avatar too big
+     $couldNotMoveFile  = "There an an error moving the file, please try again.";   //Could not move file
+
 
      /**
       * Page handling
