@@ -41,7 +41,7 @@
                 $pages = ceil($total / $perpage);
 
                 if($pagenumber == 1){
-                    $pages = 1;
+                    $pages = (($pages > 0)? $pages : 1);
                 }
                 elseif($pagenumber > $pages){
                     header('Location: ?pn=1');

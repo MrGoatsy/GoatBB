@@ -8,9 +8,30 @@
         $fetchSections = $query->fetch(PDO::FETCH_ASSOC);
 
         if($query->rowCount()){
+            $pagenumber = ((isset($_GET['pn']) && is_numeric($_GET['pn']) && $_GET['pn'] > 0)? (int)$_GET['pn'] : 1);
+            $start = (($pagenumber > 1)? ($pagenumber * $perpage) - $perpage : 0);
+
+            $querypage = $handler->prepare("SELECT SQL_CALC_FOUND_ROWS * FROM thread WHERE sc_id = :sc_id LIMIT {$start}, {$perpage}");
+            $querypage->execute([
+                ':sc_id' => $_GET['section']
+            ]);
+
+            $query = $handler->query('SELECT SQL_CALC_FOUND_ROWS th.*, count(po.t_id) AS amount, CASE when th.postdate > IFNULL(po.postdate, "0000-01-01 00:00:00") then max(th.postdate) else max(po.postdate) end AS lastdate FROM thread th LEFT OUTER JOIN threadpost po ON th.t_id = po.t_id WHERE th.archived = 0 AND th.sc_id = ' . $fetchSections['sc_id'] . ' GROUP BY th.t_id ORDER BY lastdate DESC LIMIT ' . $start . ', ' . $perpage);
+
+            $total = $handler->query("SELECT FOUND_ROWS() as total")->fetch()['total'];
+            $pages = ceil($total / $perpage);
+
+            if($pagenumber == 1){
+                $pages = (($pages > 1)? $pages : 1);
+            }
+            elseif($pagenumber > $pages){
+                header('Location: ?pn=1');
+            }
     ?>
     <div class="table-responsive">
-        <?php echo ((isset($_SESSION['user'])? '<a href="' . $website_url . 'p/newthread?s=' . $fetchSections['sc_id'] . '" class="btn btn-primary pull-right">New thread</a><br /><br />' : '')); ?>
+        <?php
+            echo sectionPagination();
+         ?>
         <table class="table" border=1>
             <tr>
                 <td>Forum</td>
@@ -18,8 +39,6 @@
                 <td style="width: 15%;">Latest post</td>
             </tr>
             <?php
-                $query = $handler->query('SELECT th.*, count(po.t_id) AS amount, CASE when th.postdate > IFNULL(po.postdate, "0000-01-01 00:00:00") then max(th.postdate) else max(po.postdate) end AS lastdate FROM thread th LEFT OUTER JOIN threadpost po ON th.t_id = po.t_id WHERE th.archived = 0 AND th.sc_id = ' . $fetchSections['sc_id'] . ' GROUP BY th.t_id ORDER BY lastdate DESC');
-
                 while($fetch = $query->fetch(PDO::FETCH_ASSOC)){
                     $queryUser = $handler->query('SELECT * FROM users WHERE u_id =' . $fetch['u_id']);
 
@@ -43,7 +62,9 @@
             ?>
 
         </table>
-        <?php echo ((isset($_SESSION['user'])? '<a href="' . $website_url . 'p/newthread?s=' . $fetchSections['sc_id'] . '" class="btn btn-primary pull-right">New thread</a>' : '')); ?>
+        <?php
+            echo sectionPagination();
+         ?>
     </div>
     <?php
         }
