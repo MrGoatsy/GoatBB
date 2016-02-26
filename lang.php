@@ -16,9 +16,9 @@
     $threaddoesnotexist = "<h2>404 Error</h2>This thread does not exist";       //404 Error
     $lastCategory       = "You can't delete the last category.";                //You can't delete the last category
     $invalidchartitle   = "You can only use letters and numbers in your title"; //Invalid characters
-    $waitTime           = 5;                                                    //Wait time in seconds
+    $waitTime           = 60;                                                    //Wait time in seconds
     $char               = 25;                                                   //Character minimum
-    $pleaseWait         = "Please wait $waitTime before posting again.";        //Please wait
+    $pleaseWait         = "Please wait $waitTime seconds before posting again.";        //Please wait
     $messageTooShort    = "Your message needs to be at least $char characters long"; //Message too short
 
     /**

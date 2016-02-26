@@ -51,12 +51,13 @@
                                                     ];
                                                     $password   = password_hash($password, PASSWORD_BCRYPT, $options);
 
-                                                    $query = $handler->prepare('INSERT INTO users (username, password, email, email_code, rank) VALUES (:username, :password, :email, :email_code, :rank)');
+                                                    $query = $handler->prepare('INSERT INTO users (username, password, joindate, email, email_code, rank) VALUES (:username, :password, :joindate, :email, :email_code, :rank)');
 
                                                     try{
                                                     $query->execute(array(
                                                         ':username'     => $username,
                                                         ':password'     => $password,
+                                                        ':joindate'     => date("Y-m-d H:i:s"),
                                                         ':email'        => $email,
                                                         ':email_code'   => $email_code,
                                                         ':rank'         => $rank

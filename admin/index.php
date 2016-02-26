@@ -9,6 +9,9 @@
 
         $fetchUser = $queryUser->fetch(PDO::FETCH_ASSOC);
 
+        $queryPermissions = $handler->query('SELECT * FROM ranks WHERE rankValue =' . $fetchUser['rank']);
+        $fetchPermissions = $queryPermissions->fetch(PDO::FETCH_ASSOC);
+
         if($fetchUser['rank'] == 0){
             header('Location: index.php');
         }

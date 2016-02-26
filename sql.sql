@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS users(
     `u_id` int(10) NOT NULL auto_increment,
     `username` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
-    `joindate` datetime NOT NULL DEFAULT NOW(),
+    `joindate` datetime NOT NULL,
     `website` varchar(255),
     `signature` varchar(1000),
     `avatar` varchar(255),
@@ -30,16 +30,17 @@ CREATE TABLE IF NOT EXISTS ranks(
     `rankValue` int(10),
     `maxRep` int(10),
     `minRep` int(10),
+    `postTime` int(10),
     PRIMARY KEY (`r_id`),
     UNIQUE KEY (`rankValue`)
 )Engine=InnoDB;
 
-INSERT INTO `ranks` (`rankName`, `rankValue`, `maxRep`, `minRep`) VALUES
-('Admin', 999, 10, -10),
-('Moderator', 950, 5, -5),
-('Premium', 100, 3, -3),
-('User', 1, 1, -1),
-('Banned', 0, NULL, NULL);
+INSERT INTO `ranks` (`rankName`, `rankValue`, `maxRep`, `minRep`, `postTime`) VALUES
+('Admin', 999, 10, -10, 0),
+('Moderator', 950, 5, -5, 0),
+('Premium', 100, 3, -3, 10),
+('User', 1, 1, -1, 30),
+('Banned', 0, NULL, NULL, NULL);
 
 CREATE TABLE IF NOT EXISTS warnings(
     `w_id` int(10) NOT NULL auto_increment,
@@ -87,7 +88,7 @@ CREATE TABLE IF NOT EXISTS thread(
     `u_id` int(10) NOT NULL,
     `title` varchar(255) NOT NULL,
     `content` varchar(10000) NOT NULL,
-    `postdate` datetime NOT NULL DEFAULT NOW(),
+    `postdate` datetime NOT NULL,
     `editdate` datetime DEFAULT '1000-01-01 00:00:00',
     `stickied` BOOLEAN DEFAULT '0',
     `archived` BOOLEAN DEFAULT '0',
@@ -99,7 +100,7 @@ CREATE TABLE IF NOT EXISTS threadpost(
     `t_id` int(10) NOT NULL,
     `u_id` int(10) NOT NULL,
     `content` varchar(10000) NOT NULL,
-    `postdate` datetime NOT NULL DEFAULT NOW(),
+    `postdate` datetime NOT NULL,
     `editdate` datetime DEFAULT '1000-01-01 00:00:00',
     `archived` BOOLEAN DEFAULT '0',
     PRIMARY KEY `p_id` (`p_id`)

@@ -195,15 +195,18 @@
 <?php
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if(isset($_POST['postToThread'])){
-            if(!isset($_COOKIE['send'])){
+            $checkThread = $handler->query('SELECT * FROM threadpost WHERE u_id =' . $fetchUser['u_id'] . ' ORDER BY postdate DESC LIMIT 1');
+            $fetchPostDate = $checkThread->fetch(PDO::FETCH_ASSOC);
+            $postDate = strtotime($fetchPostDate['postdate']);
+            $currentDate = strtotime(date("Y-m-d H:i:s"));
+
+            if($currentDate - $postDate >= $waitTime){
                 if(!empty($_POST['threadpost'])){
                     $threadpost = $_POST['threadpost'];
                     $threadpost = $purifier->purify($threadpost);
                     //$thread = strip_tags($thread, '<h1><h2><h3><h4><h5><h6><pre><blockquote><p><b><i><u><font><span><ul><li><table><tr><td><a><img><hr><br>');
 
                     if(strlen($threadpost)){
-                        setcookie('send', 'wait', time()+$waitTime);
-
                         echo perry('INSERT INTO threadpost (t_id, u_id, content) VALUES (:t_id, :u_id, :content)', [':t_id'=> $_GET['thread'], ':u_id' => $fetchUser['u_id'], ':content' => $threadpost]);
 
                         header('Location:' . $website_url . 'thread/' . $_GET['thread']);
