@@ -27,7 +27,7 @@
 
     $forumMap   = "GoatBB_GitHub/";   //What map did you put the forum? Leave empty for root
     $website_url = 'http://' . $_SERVER['HTTP_HOST'] . '/' . $forumMap; //Do not edit this
-    $contactemail = "noreply@ayy.pw"; //Admin contact email
+    $contactemail = "noreply@website.com"; //Admin contact email
 
     require_once'lang.php';
     require_once'init.php';
