@@ -164,7 +164,7 @@
         </table>
             <?php
                 }
-                if(isset($_SESSION['user'])){
+                if(isset($_SESSION['goatbbuser'])){
             ?>
             <form method="post">
                 <textarea name="threadpost" id="threadpost"></textarea>

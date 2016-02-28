@@ -1,5 +1,5 @@
 <?php
-    if(isset($_SESSION['user'])){
+    if(isset($_SESSION['goatbbuser'])){
         if(isset($_GET['s'])){
             $section = (int)$_GET['s'];
             $query = $handler->prepare('SELECT * FROM section WHERE sc_id = :sc_id');
@@ -50,7 +50,7 @@
                         $fetchCheckThread = $checkThread->fetch(PDO::FETCH_ASSOC);
                         $threadDate = strtotime($fetchCheckThread['postdate']);
                         $currentDate = strtotime(date("Y-m-d H:i:s"));
-                        
+
                         if($currentDate - $threadDate >= $fetchPermissions['postTime']){
                             if(!empty($_POST['title']) && !empty($_POST['thread'])){
                                 $title = htmlentities($_POST['title'], ENT_QUOTES);

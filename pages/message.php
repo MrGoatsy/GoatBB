@@ -1,5 +1,5 @@
 <?php
-    if(isset($_SESSION['user'])){
+    if(isset($_SESSION['goatbbuser'])){
 ?>
         <div class="row">
             <div class="col-md-3">

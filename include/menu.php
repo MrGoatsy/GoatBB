@@ -15,7 +15,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php
-                    if(isset($_SESSION['user'])){
+                    if(isset($_SESSION['goatbbuser'])){
                         echo'
                         <li>
                             <a href="' . $website_url . 'p/profile?userid=' . $fetchUser['u_id'] . '">Profile</a>

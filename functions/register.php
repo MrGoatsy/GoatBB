@@ -69,7 +69,7 @@
                                                     elseif($mailer === '1'){
                                                         $mail->setFrom($contactemail);
                                                         $mail->addAddress($email);     // Add a recipient
-                                                        $mail->isHTML(true);                                  // Set email format to HTML
+                                                        $mail->isHTML(true);           // Set email format to HTML
 
                                                         $mail->Subject = 'Account activation';
                                                         $mail->Body    = "Please click this link to activate your account:\r\n" . $website_url . "?p=activate&code=" . $email_code;

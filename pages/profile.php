@@ -39,7 +39,7 @@
                             <tr>
                                 <td class="threadtd" style="width: 64px;"><img src="<?php echo $website_url . 'images/avatars/' . $fetch['avatar']; ?>" alt="" class="avatar" style="width: 96px; height: 96px;" /></td>
                                 <td class="threadtd">
-                                    <span style="font-size: 20px;"><?php echo $fetch['username']; ?></div> <?php echo (($fetchUser['u_id'] == $fetch['u_id'] && isset($_SESSION['user']))? '<a href="' . $website_url . 'p/editprofile">[Edit]</a>' : ''); ?><br />
+                                    <span style="font-size: 20px;"><?php echo $fetch['username']; ?></div> <?php echo (($fetchUser['u_id'] == $fetch['u_id'] && isset($_SESSION['goatbbuser']))? '<a href="' . $website_url . 'p/editprofile">[Edit]</a>' : ''); ?><br />
                                     <?php echo $fetchRank['rankName']; ?>
                                 </td>
                             </tr>
@@ -64,7 +64,7 @@
                         <tr>
                             <td style="width: 10%;"><div class="profileSpan">Reputation:</div></td>
                             <td style="width: 20%;"><div class="profileSpan">
-                                <?php echo ((isset($fetchDetails['reputation'])? $fetchDetails['reputation'] : '0')); ?> <?php echo (($fetchUser['u_id'] != $fetch['u_id'] && isset($_SESSION['user']))? '<a href="' . $website_url . 'p/profile?userid=' . $fetch['u_id'] . '&giveReputation">[Give reputation]</a>' : ''); ?>
+                                <?php echo ((isset($fetchDetails['reputation'])? $fetchDetails['reputation'] : '0')); ?> <?php echo (($fetchUser['u_id'] != $fetch['u_id'] && isset($_SESSION['goatbbuser']))? '<a href="' . $website_url . 'p/profile?userid=' . $fetch['u_id'] . '&giveReputation">[Give reputation]</a>' : ''); ?>
                                 <?php echo '<a href="' . $website_url . 'p/profile?userid=' . $fetch['u_id'] . '&reputationOverview">[Overview]</a>'; ?>
                             </div></td>
                         </tr>

@@ -1,10 +1,10 @@
 <?php
     require'config.php';
 
-    if(isset($_SESSION['user'])){
+    if(isset($_SESSION['goatbbuser'])){
         $queryUser = $handler->prepare('SELECT * FROM users WHERE username = :username');
         $queryUser->execute([
-            ':username' => $_SESSION['user']
+            ':username' => $_SESSION['goatbbuser']
         ]);
 
         $fetchUser = $queryUser->fetch(PDO::FETCH_ASSOC);

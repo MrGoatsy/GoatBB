@@ -22,7 +22,7 @@
             if(password_verify($_POST['password'], $pw)){
                 if($fetch['banned'] == 0){
                     if($fetch['active'] == 1){
-                        $_SESSION['user'] = $username;
+                        $_SESSION['goatbbuser'] = $username;
 
                         header("Location: $redirect");
                     }

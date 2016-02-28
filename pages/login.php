@@ -1,5 +1,5 @@
 <?php
-    if(isset($_SESSION['user'])){
+    if(isset($_SESSION['goatbbuser'])){
         header('Location: ' . $website_url);
     }
     else{

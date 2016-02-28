@@ -35,7 +35,7 @@
         <table class="table" border=1>
             <tr>
                 <td>Forum</td>
-                <td style="width: 5%;">Replies</td>
+                <td style="text-align: center; width: 5%;">Replies</td>
                 <td style="width: 15%;">Latest post</td>
             </tr>
             <?php
@@ -46,7 +46,7 @@
             ?>
             <tr>
                 <td><a href="<?php echo $website_url . 'thread/' . $fetch['t_id']; ?>" style="font-weight: bold;"><?php echo $fetch['title']; ?></a></td>
-                <td><?php echo $fetch['amount']; ?></td>
+                <td style="text-align: center;"><?php echo $fetch['amount']; ?></td>
                 <td>
                     <?php
                         $monthNum  = substr($fetch['postdate'], 5, 2);
