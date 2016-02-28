@@ -42,7 +42,7 @@
                         ';
                     }
                  ?>
-                 <form class="navbar-form navbar-right" role="search" method="post" action="<?php echo $website_url; ?>/p/search">
+                 <form class="navbar-form navbar-right" role="search" method="post" action="<?php echo $website_url; ?>p/search">
                      <div class="form-group">
                          <input type="text" class="form-control" name="searchValue" placeholder="Search" />
                      </div>

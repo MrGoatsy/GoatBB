@@ -66,7 +66,8 @@
       * Page handling
       **/
 
-      $noaccess         = $pagedoesnotexist;                                     //No access to page
+      $noaccess         = $pagedoesnotexist;                                    //No access to page
+      $noSearchResults  = "There are no search results for that query";  //No search results
 
      /**
       * Pagination

@@ -131,7 +131,7 @@
                 $fetchTcount = $queryT->fetch(PDO::FETCH_NUM);
                 $fetchPcount = $queryP->fetch(PDO::FETCH_NUM);
         ?>
-        <table class="table" border=1>
+        <table class="table" border=1 id="<?php echo $fetch['p_id']; ?>">
             <tr>
                 <td>
                     <table style="width: 100%;">
@@ -200,7 +200,7 @@
             $postDate = strtotime($fetchPostDate['postdate']);
             $currentDate = strtotime(date("Y-m-d H:i:s"));
 
-            if($currentDate - $postDate >= $waitTime){
+            if($currentDate - $postDate >= $fetchPermissions['postTime']){
                 if(!empty($_POST['threadpost'])){
                     $threadpost = $_POST['threadpost'];
                     $threadpost = $purifier->purify($threadpost);
