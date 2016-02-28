@@ -1,10 +1,10 @@
 <?php
     require_once'../config.php';
 
-    if(isset($_SESSION['user'])){
+    if(isset($_SESSION['goatbbuser'])){
         $queryUser = $handler->prepare('SELECT * FROM users WHERE username = :username');
         $queryUser->execute([
-            ':username' => $_SESSION['user']
+            ':username' => $_SESSION['goatbbuser']
         ]);
 
         $fetchUser = $queryUser->fetch(PDO::FETCH_ASSOC);
@@ -37,7 +37,7 @@
 
       <div class="container-fluid">
         <?php
-            if(isset($_SESSION['user'])){
+            if(isset($_SESSION['goatbbuser'])){
                 if($fetchUser['rank'] >= 990){
         ?>
       	<div class="row">
