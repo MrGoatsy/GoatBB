@@ -1,6 +1,6 @@
 <div class="col-md-12">
-    <div class="tabbable" id="tabs-618721">
-        <ul class="nav nav-tabs">
+    <div class="tabbable">
+        <ul class="nav nav-tabs" id="tabs-618721">
             <?php
                 $query = $handler->query('SELECT * FROM category');
                 $x = 0;

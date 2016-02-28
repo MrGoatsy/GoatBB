@@ -42,13 +42,11 @@
                         ';
                     }
                  ?>
-                 <form class="navbar-form navbar-right" role="search">
+                 <form class="navbar-form navbar-right" role="search" method="post" action="<?php echo $website_url; ?>/p/search">
                      <div class="form-group">
-                         <input type="text" class="form-control" placeholder="Search" />
+                         <input type="text" class="form-control" name="searchValue" placeholder="Search" />
                      </div>
-                     <button type="submit" class="btn btn-default">
-                         Submit
-                     </button>
+                     <input type="submit" class="btn btn-default" name="submitSearch" />
                  </form>
             </ul>
         </div>

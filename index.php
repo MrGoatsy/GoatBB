@@ -45,7 +45,6 @@
     <!-- include summernote css/js-->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.0/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.0/summernote.js"></script>
-    <script src="<?php echo $website_url; ?>js/script.js"></script>
     <link href="<?php echo $website_url; ?>css/main.css" rel="stylesheet">
 
   </head>
@@ -90,5 +89,6 @@
                   require'include/footer.php';
                ?>
           </div>
+          <script src="<?php echo $website_url; ?>js/scripts.js?2"></script>
   </body>
 </html>
