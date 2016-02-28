@@ -22,7 +22,7 @@
 
             echo'<li><a href="?pn=' . ($pagenumber + 1) . '">&gt;</a></li>';
             echo'<li><a href="?pn=' . $pages . '">&gt;&gt;</a></li>';
-            echo ((isset($_SESSION['user'])? '<a href="' . $website_url . 'p/newthread?s=' . $fetchSections['sc_id'] . '" class="btn btn-primary pull-right">New thread</a><br /><br />' : ''));
+            echo ((isset($_SESSION['goatbbuser'])? '<a href="' . $website_url . 'p/newthread?s=' . $fetchSections['sc_id'] . '" class="btn btn-primary pull-right">New thread</a><br /><br />' : ''));
         ?>
     </ul>
 <?php
