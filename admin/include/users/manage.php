@@ -3,9 +3,11 @@
     <form method="post">
     <table class="table">
         <tr>
+            <td>UID</td>
             <td style="width: 60%;">Username</td>
             <td>Rank</td>
             <td>Warnings</td>
+            <td>Warn/Ban</td>
         </tr>
         <?php
             $query = $handler->query('SELECT * FROM users');
@@ -15,12 +17,36 @@
                     $queryW = $handler->query('SELECT *, sum(amount) as total FROM warnings WHERE u_id =' . $fetch['u_id']);
                     $fetchW = $queryW->fetch(PDO::FETCH_ASSOC);
 
+                    $queryRank = $handler->query('SELECT * FROM ranks WHERE rankValue =' . $fetch['rank']);
+                    $fetchRank = $queryRank->fetch(PDO::FETCH_ASSOC);
+
                     $fetchW['total'] = $fetchW['total'] ?? 0;
 
+                    if($fetchW['total'] >= 100 && $fetch['rank'] != 999){
+                        $handler->query('UPDATE users SET rank = 0 WHERE u_id =' . $fetch['u_id']);
+                    }
+
                     echo'<tr>
-                            <td>' . $fetch['username'] . '</td>
+                            <td>' . $fetch['u_id'] . '</td>
+                            <td>' . $fetch['username'] . '<br />' . $fetchRank["rankName"] . '</td>
                             <td>' . $fetch['rank'] . '</td>
                             <td>' . $fetchW['total'] . '%</td>
+                            <td>
+                                <select class="form-control" name="' . $fetch['u_id'] . '">
+                                    <option value=""></option>
+                                    <option value="10">10%</option>
+                                    <option value="20">20%</option>
+                                    <option value="30">30%</option>
+                                    <option value="40">40%</option>
+                                    <option value="50">50%</option>
+                                    <option value="60">60%</option>
+                                    <option value="70">70%</option>
+                                    <option value="80">80%</option>
+                                    <option value="90">90%</option>
+                                    <option value="100">100%</option>
+                                </select>
+                                <input type="text" placeholder="Reason" class="form-control" name="-' . $fetch['u_id'] . '">
+                            </td>
                         </tr>';
                 }
             }
@@ -28,50 +54,25 @@
                 echo '<tr><td colspan="4">' . $noResultsDisplay . '</td></tr>';
             }
         ?>
-            <tr><td colspan="4"><input type="submit" name="section" class="btn btn-primary pull-right" value="Submit" /></td></tr>
+            <tr><td colspan="5"><input type="submit" name="userManage" class="btn btn-primary pull-right" value="Submit" /></td></tr>
     </table>
     </form>
 </div>
 <?php
-    if(isset($_GET['p'])){
-        if(isset($_GET['id'])){
-            $id = (int)$_GET['id'];
-                if($_GET['p'] == 'del'){
-
-                $query = $handler->prepare('SELECT * FROM section WHERE sc_id = :id');
-                $query->execute([
-                    ':id'   => $id
-                ]);
-
-                if($query->rowCount()){
-                    if($_GET['p'] == 'del'){
-                        echo perry('DELETE FROM section WHERE sc_id = :id', [':id' => $id], true);
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if(isset($_POST['userManage'])){
+            foreach($_POST as $key => $value){
+                if((int)$key && $key > 0){
+                    if(!empty($value)){
+                        perry('INSERT INTO warnings (u_id, amount) VALUES (:uid, :amount)', [':uid' => $key, ':amount' => $value]);
                     }
                 }
-                else{
-                    echo'<div class="message">' . $doesnotexist . '</div>';
-
-                    header('refresh:2;url=index.php');
-                }
-            }
-        }
-    }
-    elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
-        if(isset($_POST['section'])){
-            foreach($_POST as $data => $value){
-                $id = trim(str_replace(range(0, 9), '', $data));
-                if($data != 'section'){
-                    if((int)$data){
-                        echo perry('UPDATE section SET sorder = :sorder WHERE sc_id = :id', [':sorder' => $value, ':id' => $data], false);
-                    }
-                    if(trim(str_replace(range(0, 9), '', $data)) == 'category'){
-                        $data = trim(str_replace(range('a', 'z'), '', $data));
-
-                        echo perry('UPDATE section SET c_id = :cid WHERE sc_id = :id', [':id' => $data, ':cid' => $value], false);
+                if((int)$key && $key < 0){
+                    if(!empty($value) && !empty($_POST[abs($key)])){
+                        perry('UPDATE warnings SET reason = :reason WHERE u_id =' . abs($key), [':reason' => $value]);
                     }
                 }
             }
-            header('Location: index.php');
         }
     }
 ?>

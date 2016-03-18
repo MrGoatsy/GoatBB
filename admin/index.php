@@ -13,7 +13,7 @@
         $fetchPermissions = $queryPermissions->fetch(PDO::FETCH_ASSOC);
 
         if($fetchUser['rank'] == 0){
-            header('Location: index.php');
+            header('Location: ../index.php');
         }
     }
 ?>
