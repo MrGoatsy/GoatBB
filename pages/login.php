@@ -6,6 +6,16 @@
 ?>
 <div class="row">
     <div class="col-md-12">
+        <?php
+            if(isset($_COOKIE['newpassword'])){
+        ?>
+                <div class="alert alert-success">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    Your password has been reset, please check your email.
+                </div>
+        <?php
+            }
+        ?>
         <div class="col-md-1"></div>
         <div class="col-md-5">
             <h2>Login</h2><hr />

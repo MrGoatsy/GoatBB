@@ -104,6 +104,6 @@
     elseif(isset($_GET['uid']) && isset($_GET['reset'])){
         perry('UPDATE warnings SET archived = :archived WHERE u_id = :uid', [':archived' => 1, ':uid' => (int)$_GET['uid']]);
 
-        header("refresh:0;url={$website_url}admin/");
+        header("Refresh:0;url={$website_url}admin/");
     }
 ?>
