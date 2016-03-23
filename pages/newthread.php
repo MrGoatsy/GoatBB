@@ -56,6 +56,7 @@
                                 $title = htmlentities($_POST['title'], ENT_QUOTES);
                                 $thread = $_POST['thread'];
                                 $thread = $purifier->purify($thread);
+                                //$thread = strip_tags($thread, '<h1><h2><h3><h4><h5><h6><pre><blockquote><p><b><i><u><font><span><ul><li><table><tr><td><a><img><hr><br>');
 
                                 if(strlen($thread)){
                                     echo perry('INSERT INTO thread (sc_id, u_id, title, content, postdate) VALUES (:sc_id, :u_id, :title, :content, :postdate)', [':sc_id'=> $section, ':u_id' => $fetchUser['u_id'], 'title' => $title, ':content' => $thread, ':postdate' => date("Y-m-d H:i:s")]);
