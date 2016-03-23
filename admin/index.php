@@ -60,8 +60,9 @@
                     <li class="active"><a href="#1" data-toggle="tab">Home</a></li>
                     <li><a href="#2" data-toggle="tab">Manage categories</a></li>
                     <li><a href="#3" data-toggle="tab">Manage sections</a></li>
-                    <li><a href="#4" data-toggle="tab">Manage Users</a></li>
-                    <li><a href="#5" data-toggle="tab">Manage warnings</a></li>
+                    <li><a href="#4" data-toggle="tab">Search users</a></li>
+                    <li><a href="#5" data-toggle="tab">Manage users</a></li>
+                    <li><a href="#6" data-toggle="tab">Manage warnings</a></li>
                   </ul>
                 </div>
       		</div>
@@ -72,8 +73,9 @@
                  <div class="tab-pane active" id="1"><?php require_once'include/home.php'; ?></div>
                  <div class="tab-pane" id="2"><?php require_once'include/categories/categories.php'; ?></div>
                  <div class="tab-pane" id="3"><?php require_once'include/sections/sections.php'; ?></div>
-                 <div class="tab-pane" id="4"><?php require_once'include/users/manage.php'; ?></div>
-                 <div class="tab-pane" id="5"><?php require_once'include/warnings.php'; ?></div>
+                 <div class="tab-pane" id="4"><?php require_once'include/users/usersearch.php'; ?></div>
+                 <div class="tab-pane" id="5"><?php require_once'include/users/manage.php'; ?></div>
+                 <div class="tab-pane" id="6"><?php require_once'include/warnings.php'; ?></div>
                 </div>
       		</div>
       	</div>
