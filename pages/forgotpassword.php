@@ -25,7 +25,6 @@
                     }
                 ?>
             </div>
-            <a href="<?php echo $website_url; ?>p/forgotpassword">Forgot password?</a>
         </div>
 </div>
 <?php
