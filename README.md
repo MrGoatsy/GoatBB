@@ -5,7 +5,7 @@ to what you want without having to worry about making the layout responsive. For
 which is a bootstrap based WYSIWYG editor so that makes even the editor responsive and functional on phones and tablets.
 
 <h1>How to install?</h1>
-Please take a look at the official website for a guide on how to do so:
+Please take a look at our official website for a guide on how to do so:<br />
 http://goatbb.com/installation
 
 <h1>Live demo</h1>
