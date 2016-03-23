@@ -47,7 +47,6 @@
                     header('Location: ?pn=1');
                 }
     ?>
-    <div class="table-responsive">
         <ul class="pagination pull-right">
             <?php
                 $i = 1;
@@ -191,7 +190,6 @@
                     <input class="btn btn-success" type="submit" name="postToThread" value="Submit" />
                 </div>
             </form>
-        </div>
 <?php
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if(isset($_POST['postToThread'])){

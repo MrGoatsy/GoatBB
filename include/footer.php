@@ -1,9 +1,5 @@
-<div class="pushDown">
-    <footer class="footer">
-          <div class="container">
-              <div class="footertext">
-                  Copyright (c) 2015 <a href="http://heekdevelopment.com/">heekdevelopment.com</a> All Rights Reserved.
-            </div>
-          </div>
-    </footer>
+<div class="row" id="footer">
+    <div class="col-md-12">
+        Created by <a href="http://heekdevelopment.com/" target="_blank">heekdevelopment.com</a> &amp; <a href="http://goatbb.com/" target="_blank">goatbb.com</a>
+    </div>
 </div>

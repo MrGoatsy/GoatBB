@@ -111,27 +111,3 @@ a{
 .note-editor .note-editable {
     line-height: 1 !important;
 }
-
-/* Sticky footer styles */
-
-html {
-    position:relative;
-    min-height:100%;
-}
-
-body { /* Margin bottom by footer height */
-    margin-bottom:100px;
-}
-
-.footertext {
-    margin-top:10px;
-}
-
-.footer {
-    position:absolute;
-    bottom:0;
-    left: 0;
-    width:100%; /* Set the fixed height of the footer here */
-    height:100px;
-    background-color: #e7e7e7;
-}
