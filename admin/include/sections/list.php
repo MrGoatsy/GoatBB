@@ -14,7 +14,6 @@
 
             $query = $handler->query('SELECT * FROM section ORDER BY sorder');
             if($query->rowCount()){
-                $x = 0;
                 while($fetch = $query->fetch(PDO::FETCH_ASSOC)){
                     $options = '';
                     foreach ($categories as $cfetch) {
@@ -31,8 +30,6 @@
                             <td><input type="number" class="form-control" name="' . $fetch['sc_id'] . '" value="' . $fetch['sorder'] . '" style="width: 60px;" /></td>
                         </tr>
                     ';
-
-                    $x++;
                 }
             }
             else{

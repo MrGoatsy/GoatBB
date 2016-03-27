@@ -64,6 +64,7 @@
                                     <option value="100">100%</option>
                                 </select>
                                 <input type="text" placeholder="Reason" class="form-control" name="-' . $fetch['u_id'] . '">
+                                <a href="?uid=' . $fetch['u_id'] . '&manage" class="btn btn-warning">Manage warnings</a>
                                 <a href="?uid=' . $fetch['u_id'] . '&reset" class="btn btn-warning pull-right">Reset warning level</a>
                             </td>
                         </tr>';
@@ -86,7 +87,7 @@
             foreach($_POST as $key => $value){
                 if((int)$key && $key > 0){
                     if(!empty($value)){
-                        perry('INSERT INTO warnings (u_id, amount) VALUES (:uid, :amount)', [':uid' => $key, ':amount' => $value]);
+                        perry('INSERT INTO warnings (u_id, amount, warningDate) VALUES (:uid, :amount, :warningDate)', [':uid' => $key, ':amount' => $value, ':warningDate' => date("Y-m-d H:i:s")]);
 
                         header("Refresh:0");
                     }
@@ -101,9 +102,27 @@
             }
         }
     }
-    elseif(isset($_GET['uid']) && isset($_GET['reset'])){
-        perry('UPDATE warnings SET archived = :archived WHERE u_id = :uid', [':archived' => 1, ':uid' => (int)$_GET['uid']]);
+    elseif(isset($_GET['uid'])){
+        if(isset($_GET['reset'])){
+            perry('UPDATE warnings SET archived = :archived WHERE u_id = :uid', [':archived' => 1, ':uid' => (int)$_GET['uid']]);
 
-        header("Refresh:0;url={$website_url}admin/");
+            header("Refresh:0;url={$website_url}admin/");
+        }
+        elseif(isset($_GET['manage'])){
+            require_once'warnings.php';
+        }
+        elseif(isset($_GET['warning']) && isset($_GET['archive'])){
+            $checkWarning = $handler->prepare('SELECT * FROM warnings WHERE w_id =:wid AND archived =0');
+            $checkWarning->execute([':wid' => (int)$_GET['warning']]);
+
+            if($checkWarning->rowCount()){
+                perry('UPDATE warnings SET archived = :archived WHERE w_id =:wid', [':archived' => 1, ':wid' => (int)$_GET['warning']]);
+
+                header("Refresh:0;url={$website_url}admin/");
+            }
+            else{
+                echo $warningDoesNotExist;
+            }
+        }
     }
 ?>

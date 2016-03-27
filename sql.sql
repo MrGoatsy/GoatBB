@@ -46,7 +46,8 @@ CREATE TABLE IF NOT EXISTS warnings(
     `w_id` int(10) NOT NULL auto_increment,
     `u_id` int(10) NOT NULL,
     `amount` int(10) NOT NULL,
-    `reason` varchar(255),
+    `reason` varchar(255) DEFAULT 'None',
+    `warningDate` datetime NOT NULL,
     `archived` BOOLEAN DEFAULT '0',
     PRIMARY KEY `w_id` (`w_id`)
 )Engine=InnoDB;

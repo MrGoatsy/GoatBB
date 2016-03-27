@@ -18,8 +18,11 @@
     $invalidchartitle   = "You can only use letters and numbers in your title"; //Invalid characters
     $waitTime           = 60;                                                    //Wait time in seconds
     $char               = 25;                                                   //Character minimum
-    $pleaseWait         = "Please wait $waitTime seconds before posting again.";        //Please wait
+    $pleaseWait         = "Please wait $waitTime seconds before posting again.";    //Please wait
     $messageTooShort    = "Your message needs to be at least $char characters long"; //Message too short
+    $userDoesNotExist   = "That user does not exist.";                          //User does not exist
+    $noWarningsFound    = "This user has not received any warnings.";           //No warnings found
+    $warningDoesNotExist = "This warning does not exist.";                      //Warning does not exist
 
     /**
      * Login & Register

@@ -68,6 +68,7 @@ You can either search by UID or by username.
                                         <option value="100">100%</option>
                                     </select>
                                     <input type="text" placeholder="Reason" class="form-control" name="-' . $fetch['u_id'] . '">
+                                    <a href="?uid=' . $fetch['u_id'] . '&manage" class="btn btn-warning">Manage warnings</a>
                                     <a href="?uid=' . $fetch['u_id'] . '&reset" class="btn btn-warning pull-right">Reset warning level</a>
                                 </td>
                             </tr>';
