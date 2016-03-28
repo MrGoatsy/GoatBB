@@ -20,6 +20,9 @@
                         <li>
                             <a href="' . $website_url . 'p/profile?userid=' . $fetchUser['u_id'] . '">Profile</a>
                         </li>
+                        <li>
+                            <a href="' . $website_url . 'p/messages">Messages</a>
+                        </li>
                         ';
                         if($fetchUser['rank'] >= 900){
                             echo'

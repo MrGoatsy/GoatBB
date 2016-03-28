@@ -91,6 +91,6 @@
             require'include/footer.php';
         ?>
     </div>
-    <script src="<?php echo $website_url; ?>js/scripts.js?7"></script>
+    <script src="<?php echo $website_url; ?>js/scripts.js?3"></script>
   </body>
 </html>

@@ -56,10 +56,9 @@ CREATE TABLE IF NOT EXISTS messages(
     `m_id` int(10) NOT NULL auto_increment,
     `u_id_sender` int(10) NOT NULL,
     `u_id_recipient` int(10) NOT NULL,
-    `sender_active` BOOLEAN DEFAULT '1',
-    `recipient_active` BOOLEAN DEFAULT '1',
-    `title` varchar(255) NOT NULL,
+    `subject` varchar(255) NOT NULL,
     `content` varchar(10000) NOT NULL,
+    `messageDate` datetime NOT NULL,
     PRIMARY KEY `m_id` (`m_id`)
 )Engine=InnoDB;
 

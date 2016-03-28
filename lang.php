@@ -65,6 +65,13 @@
      $imageTooBig       = "Your avatar is too big.";                            //Avatar too big
      $couldNotMoveFile  = "There an an error moving the file, please try again.";   //Could not move file
 
+     /**
+     * Message handling
+     **/
+
+     $inboxEmpty        = "There are no messages in your inbox";                //Inbox is empty
+     $outboxEmpty       = "There are no messages in your outbox";               //Outbox is empty
+     $messageDoesNotExist = "That message does not exist.";                     //Message does not exist
 
      /**
       * Page handling
