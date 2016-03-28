@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS users(
     `joindate` datetime NOT NULL,
     `website` varchar(255),
     `signature` varchar(1000),
-    `avatar` varchar(255),
+    `avatar` varchar(255) DEFAULT 'default.png',
     `email` varchar(255) NOT NULL,
     `email_code` varchar(32) NOT NULL,
     `rank` int(10) DEFAULT '1',
@@ -59,6 +59,9 @@ CREATE TABLE IF NOT EXISTS messages(
     `subject` varchar(255) NOT NULL,
     `content` varchar(10000) NOT NULL,
     `messageDate` datetime NOT NULL,
+    `messageRead` BOOLEAN DEFAULT '0',
+    `sender_archived` BOOLEAN DEFAULT '0',
+    `recipient_archived` BOOLEAN DEFAULT '0',
     PRIMARY KEY `m_id` (`m_id`)
 )Engine=InnoDB;
 

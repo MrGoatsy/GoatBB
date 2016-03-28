@@ -1,9 +1,12 @@
+<?php
+    if(isset($_SESSION['goatbbuser'])){
+?>
 <div class="row">
     <div class="col-md-2">
         <ul class="nav nav-pills nav-stacked">
           <li><a href="<?php echo $website_url; ?>p/messages">Inbox</a></li>
           <li><a href="<?php echo $website_url; ?>p/messages?new">New message</a></li>
-          <li><a href="<?php echo $website_url; ?>p/messages?sent">Sent messages</a></li>
+          <li><a href="<?php echo $website_url; ?>p/messages?outbox">Sent messages</a></li>
         </ul>
     </div>
     <div class="col-md-10">
@@ -16,19 +19,11 @@
                     require_once'messages/outbox.php';
                 }
                 elseif(isset($_GET['mid'])){
-                    echo'<h2>Inbox</h2>';
-                    $queryMessages = $handler->prepare('SELECT * FROM messages WHERE m_id = :mid AND u_id_recipient = :uid');
-                    $queryMessages->execute(['mid' => (int)$_GET['mid'], ':uid' => $fetchUser['u_id']]);
-
-                    if($queryMessages->rowCount()){
-                        $fetchMessageCheck = $queryMessages->fetch(PDO::FETCH_ASSOC);
-
-                        if($fetchUser['u_id'] == $fetchMessageCheck['u_id_recipient']){
-
-                        }
+                    if(isset($_GET['viewinbox'])){
+                        require_once'messages/viewinbox.php';
                     }
-                    else{
-                        echo $messageDoesNotExist;
+                    elseif(isset($_GET['viewoutbox'])){
+                        require_once'messages/viewoutbox.php';
                     }
                 }
                 else{
@@ -38,3 +33,9 @@
          ?>
     </div>
 </div>
+<?php
+    }
+    else{
+        echo $pagedoesnotexist;
+    }
+?>

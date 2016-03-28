@@ -39,7 +39,7 @@
                             <tr>
                                 <td class="threadtd" style="width: 64px;"><img src="<?php echo $website_url . 'images/avatars/' . $fetch['avatar']; ?>" alt="" class="avatar" style="width: 96px; height: 96px;" /></td>
                                 <td class="threadtd">
-                                    <span style="font-size: 20px;"><?php echo $fetch['username']; ?></div> <?php echo (($fetchUser['u_id'] == $fetch['u_id'] && isset($_SESSION['goatbbuser']))? '<a href="' . $website_url . 'p/editprofile">[Edit]</a>' : ''); ?><br />
+                                    <span style="font-size: 20px;"><?php echo $fetch['username']; ?></div> <?php echo (($fetchUser['u_id'] == $fetch['u_id'] && isset($_SESSION['goatbbuser']))? '<a href="' . $website_url . 'p/editprofile">[Edit]</a>' : ''); ?></span><br />
                                     <?php echo $fetchRank['rankName']; ?>
                                 </td>
                             </tr>
