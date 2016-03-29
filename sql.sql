@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS users(
     `u_id` int(10) NOT NULL auto_increment,
-    `username` varchar(255) NOT NULL,
+    `username` varchar(50) NOT NULL,
     `password` varchar(255) NOT NULL,
     `joindate` datetime NOT NULL,
     `website` varchar(255),
