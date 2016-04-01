@@ -1,5 +1,5 @@
 <?php
-    if(isset($_SESSION['goatbbuser'])){
+    if(isset($_SESSION[$uniqueCode])){
         header('Location: ' . $website_url);
     }
     else{

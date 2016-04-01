@@ -15,7 +15,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php
-                    if(isset($_SESSION['goatbbuser'])){
+                    if(isset($_SESSION[$uniqueCode])){
                         echo'
                         <li>
                             <a href="' . $website_url . 'p/profile?userid=' . $fetchUser['u_id'] . '">Profile</a>
@@ -53,6 +53,5 @@
                  </form>
             </ul>
         </div>
-
     </nav>
 </div>

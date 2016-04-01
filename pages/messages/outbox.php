@@ -1,5 +1,5 @@
 <?php
-    $queryMessages = $handler->prepare('SELECT * FROM messages WHERE u_id_sender = :uid AND sender_archived = :archived');
+    $queryMessages = $handler->prepare('SELECT * FROM messages WHERE u_id_sender = :uid AND sender_archived = :archived ORDER BY messageDate DESC');
     $queryMessages->execute([':uid' => $fetchUser['u_id'], ':archived' => 0]);
 ?>
 <div class="row">

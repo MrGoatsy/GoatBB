@@ -1,5 +1,5 @@
 <?php
-    if(isset($_SESSION['goatbbuser'])){
+    if(isset($_SESSION[$uniqueCode])){
         if(isset($_GET['s'])){
             $section = (int)$_GET['s'];
             $query = $handler->prepare('SELECT * FROM section WHERE sc_id = :sc_id');

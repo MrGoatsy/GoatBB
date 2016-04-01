@@ -1,10 +1,10 @@
 <?php
     require'config.php';
 
-    if(isset($_SESSION['goatbbuser'])){
+    if(isset($_SESSION[$uniqueCode])){
         $queryUser = $handler->prepare('SELECT * FROM users WHERE username = :username');
         $queryUser->execute([
-            ':username' => $_SESSION['goatbbuser']
+            ':username' => $_SESSION[$uniqueCode]
         ]);
 
         $fetchUser = $queryUser->fetch(PDO::FETCH_ASSOC);
@@ -25,7 +25,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,8 +46,8 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.0/summernote.js"></script>
     <link href="<?php echo $website_url; ?>css/main.css?2" rel="stylesheet">
 
-  </head>
-  <body>
+</head>
+<body>
     <div class="container-fluid">
       <div class="row">
           <div class="col-md-12">
@@ -56,41 +56,41 @@
       </div>
     <div class="row">
           <?php
-              require'include/menu.php';
+              require_once'include/menu.php';
            ?>
     </div>
-    	<div class="row">
-    		<div class="col-md-12">
-            <?php
-                if($banned === 1){
-                    require_once'pages/banned.php';
+    <div class="row">
+    	<div class="col-md-12">
+        <?php
+            if($banned === 1){
+                require_once'pages/banned.php';
+            }
+            else{
+                if(isset($_GET['p'])){
+                  if(file_exists('pages/' . $_GET['p'] . '.php')){
+                      include'pages/' . $_GET['p'] . '.php';
+                  }
+                  else{
+                      echo $pagedoesnotexist;
+                  }
+                }
+                elseif(isset($_GET['section'])){
+                  require_once'pages/section.php';
+                }
+                elseif(isset($_GET['thread'])){
+                  require_once'pages/thread.php';
                 }
                 else{
-                    if(isset($_GET['p'])){
-                      if(file_exists('pages/' . $_GET['p'] . '.php')){
-                          include'pages/' . $_GET['p'] . '.php';
-                      }
-                      else{
-                          echo $pagedoesnotexist;
-                      }
-                    }
-                    elseif(isset($_GET['section'])){
-                      require_once'pages/section.php';
-                    }
-                    elseif(isset($_GET['thread'])){
-                      require_once'pages/thread.php';
-                    }
-                    else{
-                      include'pages/home.php';
-                    }
+                  include'pages/home.php';
                 }
-            ?>
-    		</div>
-    	</div>
-        <?php
-            require'include/footer.php';
+            }
         ?>
+    	</div>
+    </div>
+    <?php
+        require'include/footer.php';
+    ?>
     </div>
     <script src="<?php echo $website_url; ?>js/scripts.js?3"></script>
-  </body>
+</body>
 </html>

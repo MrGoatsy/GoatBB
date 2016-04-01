@@ -10,7 +10,6 @@
     ob_start();
 
     header('Content-Type: text/html; charset=utf-8');
-    $path = str_replace($_SERVER['DOCUMENT_ROOT'], $_SERVER['SERVER_NAME'] . '/', dirname(__FILE__));
 
     $mysqldb    = 'localhost';  //Your Mysql database
     $dbname     = 'goatbb';     //Your Mysql database name
@@ -29,10 +28,12 @@
     $website_url = 'http://' . $_SERVER['HTTP_HOST'] . '/' . $forumMap; //Do not edit this
     $contactemail = "noreply@website.com"; //Admin contact email
 
+    $uniqueCode = ''; //Unique code for your website
+
     require_once'lang.php';
     require_once'init.php';
     require_once'htmlpurifier/HTMLPurifier.auto.php';
-    require'phpmailer/PHPMailerAutoload.php';                                  // TCP port to connect to
+    require'phpmailer/PHPMailerAutoload.php';
 
     $config = HTMLPurifier_Config::createDefault();
     $purifier = new HTMLPurifier($config);

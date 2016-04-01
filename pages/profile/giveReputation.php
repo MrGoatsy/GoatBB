@@ -1,6 +1,6 @@
 <?php
     if(isset($_GET['p']) && isset($_GET['userid']) && isset($_GET['giveReputation'])){
-        if(isset($_SESSION['goatbbuser'])){
+        if(isset($_SESSION[$uniqueCode])){
 ?>
         <div class="row">
             <div class="col-md-4">

@@ -166,7 +166,7 @@
         </table>
             <?php
                 }
-                if(isset($_SESSION['goatbbuser'])){
+                if(isset($_SESSION[$uniqueCode])){
             ?>
             <form method="post">
                 <textarea name="threadpost" id="threadpost"></textarea>

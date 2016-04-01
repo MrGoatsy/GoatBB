@@ -1,5 +1,5 @@
 <?php
-    if(isset($_SESSION['goatbbuser'])){
+    if(isset($_SESSION[$uniqueCode])){
 ?>
         <div class="row">
             <div class="col-md-5">

@@ -7,6 +7,7 @@
         global $emptyerror;
         global $catcherror;
         global $notactive;
+        global $uniqueCode;
 
         if(!empty($_POST['username']) && !empty($_POST['password'])){
             $username       = $_POST['username'];
@@ -22,7 +23,7 @@
             if(password_verify($_POST['password'], $pw)){
                 if($fetch['banned'] == 0){
                     if($fetch['active'] == 1){
-                        $_SESSION['goatbbuser'] = $username;
+                        $_SESSION[$uniqueCode] = $username;
 
                         header("Location: $redirect");
                     }
