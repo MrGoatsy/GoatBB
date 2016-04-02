@@ -1,10 +1,5 @@
 <?php
-    if(is_dir('functions/')){
-        $map = 'functions/';
-    }
-    else{
-        $map = '../functions/';
-    }
+    $map = ((is_dir('functions/'))? 'functions/' : '../functions/');
 
     $Directory = new RecursiveDirectoryIterator($map);
     $Iterator = new RecursiveIteratorIterator($Directory);
@@ -14,12 +9,7 @@
         require_once $name;
     }
 
-    if(is_dir('plugins/')){
-        $map = 'plugins/';
-    }
-    else{
-        $map = '../plugins/';
-    }
+    $map = ((is_dir('plugins/')? 'plugins/' : '../plugins/'));
 
     $Directory = new RecursiveDirectoryIterator($map);
     $Iterator = new RecursiveIteratorIterator($Directory);
