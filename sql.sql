@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS section(
     `secdesc` varchar(500),
     `secimage` varchar(500),
     `sorder` int(10) NOT NULL,
+    `archived` BOOLEAN DEFAULT '0',
     PRIMARY KEY `sc_id` (`sc_id`),
     UNIQUE KEY (`secname`)
 )Engine=InnoDB;
