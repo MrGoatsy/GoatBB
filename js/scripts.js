@@ -1,9 +1,3 @@
-$(window).bind("load", function() {
-    if ($(document.body).height() < $(window).height()) {
-        $('#footer').attr('style', 'position: fixed !important; bottom: 0px; width: 100%;');
-    }
-});
-
 $(document).ready(function(){
     $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
         localStorage.setItem('activeTab', $(e.target).attr('href'));

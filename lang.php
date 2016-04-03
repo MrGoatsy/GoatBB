@@ -56,6 +56,7 @@
      $repUpdated        = "Reputation successfully updated.";                   //Reputation was updated
      $profileUpdated    = "Your profile was successfully updated.";             //Profile updated
      $notAWebsite       = "That is not a valid website.";                       //Invalid website
+     $noReputation      = "This user has no reputation.";                       //No reputation
 
      /**
      * Avatar uploading

@@ -1,11 +1,11 @@
-<?php
-    if(isset($_SESSION[$uniqueCode])){
-        header('Location: ' . $website_url);
-    }
-    else{
-?>
 <div class="row">
-        <div class="col-md-4">
+    <div class="col-md-4">
+        <?php
+            if(isset($_SESSION[$uniqueCode])){
+                header('Location: ' . $website_url);
+            }
+            else{
+        ?>
             <h2>Forgot password</h2><hr />
             <form method="post">
                 <div class="input-group margin-bottom-sm" style="margin-bottom: 5px;">
@@ -25,8 +25,8 @@
                     }
                 ?>
             </div>
-        </div>
+        <?php
+        }
+        ?>
+    </div>
 </div>
-<?php
-}
-?>
