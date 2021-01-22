@@ -21,18 +21,18 @@
             $pw             = $fetch['password'];
 
             if(password_verify($_POST['password'], $pw)){
-                if($fetch['banned'] == 0){
-                    if($fetch['active'] == 1){
+                if($fetch['active'] == 1){
+                    if($fetch['rank'] != 0){
                         $_SESSION[$uniqueCode] = $username;
 
                         header("Location: $redirect");
                     }
                     else{
-                        return $notactive;
+                        return $banned;
                     }
                 }
                 else{
-                    return $banned;
+                    return $notactive;
                 }
             }
             else{
