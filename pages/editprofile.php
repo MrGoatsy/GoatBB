@@ -57,9 +57,10 @@
                                     $file_ext = explode('.', $file_name);
                                     $file_ext = strtolower(end($file_ext));
 
-                                    $allowed = ['jpg', 'jpeg', 'png'];
+                                    $allowed = array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF);
+                                    $detectedType = exif_imagetype($_FILES['avatar']['tmp_name']);
 
-                                    if(in_array($file_ext, $allowed)){
+                                    if(in_array($detectedType, $allowed)){
                                         if($file_error === 0){
                                             if($file_size <= 1000000){
                                                 $file_name_new = $fetchUser['u_id'] . '.' . $file_ext;
